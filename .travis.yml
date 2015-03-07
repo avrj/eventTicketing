@@ -1,0 +1,15 @@
+language: ruby
+rvm:
+- 2.2.0
+script:
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+deploy:
+  provider: heroku
+  api_key:
+    secure: WuaCKHpCeSAH/IzAg+SCwOHrVnPE7uST/gng/fcXkpucyOpT5hhJoFfQJT0DAlVlZayuJ/evZlA1x/7hsn/w/4yr/fmMsr9wCcfKBqRgPpVyDruTFpOV2EZzxDNKsHvhO1cf/HFk/xmCbCS+gSG/jB14tUJaIXKd7gF+8rERkRg=
+  app: arcane-escarpment-6469
+  on:
+    repo: avrj/EventReservingSystem

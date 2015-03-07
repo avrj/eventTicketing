@@ -33,6 +33,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'simplecov', require: false
+
+gem 'bootstrap-sass'
+
+gem 'jquery-turbolinks'
+
+gem 'rack-mini-profiler'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -44,9 +52,23 @@ group :development, :test do
   gem 'spring'
 
   gem 'sqlite3'
+
+  gem 'rspec-rails', '~> 3.0'
+
+  gem 'better_errors'
+
+  gem 'rails_layout'
 end
 
 group :production do
    gem 'pg'
    gem 'rails_12factor'
+end
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
