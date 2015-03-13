@@ -41,6 +41,10 @@ gem 'jquery-turbolinks'
 
 gem 'rack-mini-profiler'
 
+gem 'simple_form'
+
+gem 'slack-notify'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -69,6 +73,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
-  gem 'selenium-webdriver'
-  gem 'database_cleaner'
+  #gem 'selenium-webdriver'
+  #gem 'database_cleaner'
 end

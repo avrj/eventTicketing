@@ -10,6 +10,7 @@ deploy:
   provider: heroku
   api_key:
     secure: WuaCKHpCeSAH/IzAg+SCwOHrVnPE7uST/gng/fcXkpucyOpT5hhJoFfQJT0DAlVlZayuJ/evZlA1x/7hsn/w/4yr/fmMsr9wCcfKBqRgPpVyDruTFpOV2EZzxDNKsHvhO1cf/HFk/xmCbCS+gSG/jB14tUJaIXKd7gF+8rERkRg=
-  app: arcane-escarpment-6469
+  run: "rake db:migrate"
+  app: event-ticketing
   on:
-    repo: avrj/EventReservingSystem
+    repo: avrj/eventTicketing
