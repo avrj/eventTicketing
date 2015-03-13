@@ -9,8 +9,8 @@ script:
 deploy:
   provider: heroku
   api_key:
-    secure: WuaCKHpCeSAH/IzAg+SCwOHrVnPE7uST/gng/fcXkpucyOpT5hhJoFfQJT0DAlVlZayuJ/evZlA1x/7hsn/w/4yr/fmMsr9wCcfKBqRgPpVyDruTFpOV2EZzxDNKsHvhO1cf/HFk/xmCbCS+gSG/jB14tUJaIXKd7gF+8rERkRg=
-  run: "rake db:migrate"
+    secure: ROfaK+XdJa8UbDJ84ZJTQ/QikHOGtn7u7Dix0ZlerSZrNQs0sSFsK5Nu6IOriEIaWE1AG/RCxCd+td+ojzYU51Q7iLUOgdDRLIYTxnLciUL5tVUxJRUyd4PJXgfOLoc+BO+LxeMMeN3ASPvAlGMNVJm9teCzb/tgISP99tYEHjw=
+  run: rake db:migrate
   app: event-ticketing
   on:
     repo: avrj/eventTicketing
