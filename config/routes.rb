@@ -1,10 +1,75 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :orders
+
+    resources :tickets
+
+    resources :seats
+
+    resources :ticket_types
+
+    resources :customers do
+      get 'tickets', to: 'customers#tickets'
+      get 'orders', to: 'customers#orders'
+      get 'seats', to: 'customers#seats'
+    end
+
+    resources :users
+
+    #get '/customers/:id/tickets', to: 'customers#tickets'
+    #get '/customers/:id/orders', to: 'customers#orders'
+    #get '/customers/:id/seats', to: 'customers#seats'
+
+    get 'login', to: 'sessions#new'
+    delete 'logout', to: 'sessions#destroy'
+
+    root 'sessions#new'
+
+    resource :session, only: [:new, :create, :delete]
+
+  end
+
+  namespace :customer do
+    root 'orders#index'
+
+    get 'login', to: 'sessions#new'
+
+    delete 'logout', to: 'sessions#destroy'
+
+    resources :orders, only: [:index, :show, :new, :create] do
+      post 'pay', to: 'orders#pay'
+    end
+
+    resource :contact_information, only: [:show, :update]
+    post 'contact_information', to: 'customers#update'
+
+    resource :contact_information, only: [:show, :edit, :update]
+
+    resource :session, only: [:new, :create, :delete]
+  end
+
+  resources :customers, only: [:new, :create]
+
+  resource :orders, only: [:create]
+
+  get 'tickets', to: 'ticket_types#index'
+  get 'seats', to: 'seats#index'
+  get 'shopping_cart', to: 'shopping_cart#index'
+  post 'shopping_cart/add_seats', to: 'shopping_cart#add_seats'
+  post 'shopping_cart/add_tickets', to: 'shopping_cart#add_tickets'
+  delete 'shopping_cart/delete_seat', to: 'shopping_cart#delete_seat'
+  delete 'shopping_cart', to: 'shopping_cart#destroy'
+  post 'shopping_cart/checkout', to: 'shopping_cart#checkout'
+  post 'shopping_cart/update_qty', to: 'shopping_cart#update_qty'
+
+  get 'login_or_register', to: 'shopping_cart#login_or_register'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root 'seat_selector#index'
+  root 'customer/seat_selector#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

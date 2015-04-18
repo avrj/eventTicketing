@@ -1,0 +1,49 @@
+<%= form_tag shopping_cart_add_seats_path do %>
+    <div class="form-inputs">
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Selected</th>
+    <th>Type</th>
+    <th>Table</th>
+    <th>Seat</th>
+    <th>Price</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @seats.each do |seat| %>
+      <% if seat.ticket.reservation.nil? %>
+      <tr>
+        <% else %>
+      <tr style="color: #c0c0c0;">
+  <% end %>
+        <% if seat.ticket.reservation.nil? %>
+        <td><input type="checkbox" name="seats[]" value="<%= seat.id %>" /></td>
+            <% else %>
+            <td><input type="checkbox" name="seats[]" value="<%= seat.id %>" disabled="disabled" /></td>
+            <% end %>
+        <td><%= seat.ticket.ticket_type.name %></td>
+        <td><%= seat.table %></td>
+        <td><%= seat.seat %></td>
+        <td><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
+      <% if seat.ticket.reservation.nil? %>
+          <td>
+            <span class="label label-success">Free</span>
+          </td>
+      <% else %>
+          <td>
+            <span class="label label-danger">Unavailable</span>
+          </td>
+      <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+    </div>
+
+    <div class="form-actions">
+      <%= submit_tag("Add to cart", :class=>"btn btn-primary") %>
+    </div>
+<% end %>

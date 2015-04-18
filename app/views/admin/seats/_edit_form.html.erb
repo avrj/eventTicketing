@@ -1,0 +1,15 @@
+<%= simple_form_for(@seat, url: admin_seat_path) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :table %>
+    <%= f.input :seat %>
+    <%= f.input :x %>
+    <%= f.input :y %>
+    <%= f.input :angle %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

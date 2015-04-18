@@ -1,0 +1,76 @@
+<p>
+  <strong>Status:</strong>
+  <% if @order.paid %><span class="label label-success">paid</span><% else %><span class="label label-danger">unpaid</span><% end %>
+</p>
+<p>
+  <strong>Customer:</strong>
+  <%= link_to @order.customer.firstname, admin_customer_path(@order.customer) %>
+</p>
+
+<% if @tickets.count > 0 %>
+    <div>
+      <h2>Tickets</h2>
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Price</th>
+          <th>Reservation code</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @tickets.each do |ticket| %>
+            <tr>
+              <td><%= ticket.ticket_type.name %></td>
+              <td><%= number_to_currency(ticket.ticket_type.price) %></td>
+              <% if @order.paid %>
+                  <td>koodi</td>
+              <% else %>
+                  <td>Unavailable</td>
+              <% end %>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+<% if @seats.count > 0 %>
+    <div>
+      <h2>Seats</h2>
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Table</th>
+          <th>Seat</th>
+          <th>Type</th>
+          <th>Price</th>
+          <th>Reservation code</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @seats.each do |seat| %>
+            <tr>
+              <td><%= seat.ticket.ticket_type.name %></td>
+              <td><%= seat.table %></td>
+              <td><%= seat.seat %></td>
+              <td><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
+              <% if @order.paid %>
+                  <td>koodi</td>
+              <% else %>
+                  <td>Unavailable</td>
+              <% end %>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+<div>
+  <p><strong>Total price:</strong> <%= number_to_currency @order.total %></p>
+</div>
+
+<%= link_to 'Edit', edit_admin_order_path(@order) %> |
+<%= link_to 'Back to Orders', admin_orders_path %>

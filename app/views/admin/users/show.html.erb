@@ -1,0 +1,12 @@
+<p>
+  <strong>Username:</strong>
+  <%= @admin.username %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @admin.level %>
+</p>
+
+<%= link_to 'Edit', edit_admin_user_path(@admin) %> |
+<%= link_to 'Back', admin_users_path %>

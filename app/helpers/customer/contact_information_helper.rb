@@ -1,0 +1,2 @@
+module Customer::ContactInformationHelper
+end

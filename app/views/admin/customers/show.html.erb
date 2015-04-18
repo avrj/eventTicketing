@@ -1,0 +1,46 @@
+<p>
+  <strong>Email:</strong>
+  <%= @customer.email %>
+</p>
+<p>
+  <strong>Firstname:</strong>
+  <%= @customer.firstname %>
+</p>
+
+<p>
+  <strong>Lastname:</strong>
+  <%= @customer.lastname %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @customer.address %>
+</p>
+
+<p>
+  <strong>Postcode:</strong>
+  <%= @customer.postcode %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @customer.city %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @customer.phone %>
+</p>
+
+<p>
+  <strong>Age:</strong>
+  <%= @customer.age %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @customer.gender %>
+</p>
+
+<%= link_to 'Edit', edit_admin_customer_path(@customer) %> |
+<%= link_to 'Back', admin_customers_path %>

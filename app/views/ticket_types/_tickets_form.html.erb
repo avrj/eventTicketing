@@ -1,0 +1,35 @@
+<%= form_tag shopping_cart_add_tickets_path do %>
+    <div class="form-inputs">
+<table class="table">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Quantity</th>
+    <th>Free / Total</th>
+    <th>Price</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @ticket_types.each do |ticket_type| %>
+    <% if ticket_type.total.count > 0 %>
+      <tr>
+        <td><%= ticket_type.name %></td>
+        <% if ticket_type.free.count > 0 %>
+        <td><input type="number" name="tickets[<%= ticket_type.id %>]" min="0" max="<%= ticket_type.free.count %>" value="0" /></td>
+        <% else %>
+        <td>-</td>
+            <% end %>
+            <td><%= ticket_type.free.count %> / <%= ticket_type.total.count %></td>
+        <td><%= number_to_currency(ticket_type.price) %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+    </div>
+
+    <div class="form-actions">
+      <%= submit_tag("Add to cart", :class=>"btn btn-primary") %>
+    </div>
+<% end %>

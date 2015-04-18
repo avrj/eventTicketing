@@ -1,0 +1,17 @@
+<h1>Listing Tickets for Customer</h1>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Email</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @tickets.each do |ticket| %>
+      <tr>
+        <td><%= ticket.id %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,67 @@
+<h1>Shopping Cart</h1>
+<% if @seats.size > 0 %>
+    <h2>Seats</h2>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Type</th>
+        <th>Table</th>
+        <th>Seat</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @seats.each do |seat| %>
+          <tr>
+            <td><%= seat.ticket.ticket_type.name %></td>
+            <td><%= seat.table %></td>
+            <td><%= seat.seat %></td>
+            <td><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
+            <th><%= button_to 'Delete', shopping_cart_delete_seat_path(id: seat), :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger' %></th>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
+<% if @tickets %>
+    <h2>Tickets</h2>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Free / Total</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @ticket_types.each do |ticket_type| %>
+        <% if @tickets[ticket_type.id.to_s].to_i > 0 %>
+          <tr>
+            <td><%= ticket_type.name %></td>
+            <td><input type="number" name="tickets[<%= ticket_type.id %>]" min="0" max="<%= @tickets[ticket_type.id.to_s].to_i+ticket_type.free.count %>" value="<%= @tickets[ticket_type.id.to_s] %>" /></td>
+            <td><%= ticket_type.free.count %> / <%= ticket_type.total.count %></td>
+            <td><%= number_to_currency(ticket_type.price) %></td>
+            <th><%= button_to 'Update qty', shopping_cart_update_qty_path(id: ticket_type), class: 'btn btn-danger' %></th>
+            </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+<% end %>
+
+
+<% if @tickets or @seats.size > 0 %>
+    <p><strong>Total:</strong> <%= number_to_currency(@shopping_cart_total_price) %></p>
+
+    <div class="btn-group">
+        <%= button_to 'Checkout', shopping_cart_checkout_path, :method => :post, class: 'btn btn-primary' %>
+        <%= button_to 'Empty the shopping cart', shopping_cart_path, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger' %>
+    </div>
+<% else %>
+    <p>Looks like the cart is empty.</p>
+<% end %>

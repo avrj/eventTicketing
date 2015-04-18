@@ -1,0 +1,45 @@
+<h2>Your contact information</h2>
+<br />
+<table class="table" style="width: 300px;">
+  <tbody>
+  <tr>
+    <th>Email</th>
+    <td><%= current_customer_user.email %></td>
+  </tr>
+  <tr>
+    <th>Firstname</th>
+    <td><%= current_customer_user.firstname %></td>
+  </tr>
+  <tr>
+    <th>Lastname</th>
+    <td><%= current_customer_user.lastname %></td>
+  </tr>
+  <tr>
+    <th>Address</th>
+    <td><%= current_customer_user.address %></td>
+  </tr>
+  <tr>
+    <th>Postcode</th>
+    <td><%= current_customer_user.postcode %></td>
+  </tr>
+  <tr>
+    <th>City</th>
+    <td><%= current_customer_user.city %></td>
+  </tr>
+  <tr>
+    <th>Phone number</th>
+    <td><%= current_customer_user.phone %></td>
+  </tr>
+  <tr>
+    <th>Age</th>
+    <td><%= current_customer_user.age %></td>
+  </tr>
+  <tr>
+    <th>Gender</th>
+    <td><%= current_customer_user.gender %></td>
+  </tr>
+  </tbody>
+</table>
+
+<br />
+<p><%= link_to 'Edit', edit_customer_contact_information_path %></p>

@@ -1,0 +1,28 @@
+<%= simple_form_for(@customer, url: customer_contact_information_path) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :email, placeholder: 'user@domain.com' %>
+      <h2>Change your personal details</h2>
+      <%= f.input :firstname %>
+      <%= f.input :lastname %>
+      <%= f.input :address, placeholder: 'Esimerkkikatu 1 A 12' %>
+      <%= f.input :postcode, placeholder: '01800' %>
+      <%= f.input :city, placeholder: 'Helsinki' %>
+      <%= f.input :phone, placeholder: '+358401234567' %>
+      <%= f.input :age %>
+      <%= f.input :gender %>
+      <h2>Change password</h2>
+      <p>Leave these fields blank to keep your current password.</p>
+      <%= f.input :password, label: 'New password' %>
+      <%= f.input :password_confirmation, label: 'Retype the new password' %>
+      <p>Enter your current password to continue.</p>
+      <%= f.input :current_password %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, "Update contact information", class: "btn btn-primary" %>
+    </div>
+<% end %>
+<br />
+<%= link_to 'Back', customer_contact_information_path %>

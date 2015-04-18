@@ -1,0 +1,19 @@
+<h1>Listing Tickets</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Given away</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tickets.each do |ticket| %>
+      <tr>
+        <td><%= ticket.code %></td>
+        <td><%= ticket.given_away %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

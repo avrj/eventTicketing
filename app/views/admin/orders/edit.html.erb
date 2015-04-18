@@ -1,0 +1,85 @@
+<h1>Editing Order</h1>
+
+<p>
+  <strong>Status:</strong>
+  <% if @order.paid %><span class="label label-success">paid</span><% else %><span class="label label-danger">unpaid</span><% end %>
+</p>
+<p><% if @order.paid %><button class="btn btn-primary">Mark as unpaid</button><% else %><button class="btn btn-primary">Mark as paid</button><% end %></p>
+<p>
+  <strong>Customer:</strong>
+  <%= link_to @order.customer.firstname, admin_customer_path(@order.customer) %>
+</p>
+<p><button class="btn btn-danger">Change customer</button></p>
+
+<% if @tickets.count > 0 %>
+    <div>
+      <h2>Tickets</h2>
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Price</th>
+          <th>Reservation code</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @tickets.each do |ticket| %>
+            <tr>
+              <td><%= ticket.ticket_type.name %></td>
+              <td><%= number_to_currency(ticket.ticket_type.price) %></td>
+              <% if @order.paid %>
+                  <td>koodi</td>
+              <% else %>
+                  <td>Unavailable</td>
+              <% end %>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+<button class="btn btn-primary">Add tickets</button>
+<% if @seats.count > 0 %>
+    <div>
+      <h2>Seats</h2>
+
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Table</th>
+          <th>Seat</th>
+          <th>Type</th>
+          <th>Price</th>
+          <th>Reservation code</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @seats.each do |seat| %>
+            <tr>
+              <td><%= link_to seat.ticket.ticket_type.name, admin_ticket_type_path(seat.ticket.ticket_type) %></td>
+              <td><%= seat.table %></td>
+              <td><%= seat.seat %></td>
+              <td><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
+              <% if @order.paid %>
+                  <td>koodi</td>
+              <% else %>
+                  <td>Unavailable</td>
+              <% end %>
+              <td><button class="btn btn-danger">Remove seat</button> <button class="btn btn-danger">Generate new code</button></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+<button class="btn btn-primary">Add seats</button>
+<div>
+  <p><strong>Total price:</strong> <%= number_to_currency @order.total %></p>
+</div>
+
+<p><button class="btn btn-danger">Destroy Order</button></p>
+
+<%= link_to 'Show', admin_order_path(@order) %> |
+<%= link_to 'Back to Orders', admin_orders_path %>

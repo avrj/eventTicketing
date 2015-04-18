@@ -1,0 +1,12 @@
+<%= form_tag customer_session_path do %>
+    <label>Email</label>
+
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="erkki.esimerkki">
+      <span class="input-group-addon" id="basic-addon1">@</span>
+      <input type="text" class="form-control" placeholder="osoite.com" aria-describedby="basic-addon1">
+    </div>
+    <%= text_field_tag :email, params[:email] %><br/>
+    <label>Password</label> <%= password_field_tag :password, params[:password] %><br/>
+    <%= submit_tag "Log in", class: "btn btn-primary" %>
+<% end %>

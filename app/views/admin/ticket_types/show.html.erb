@@ -1,0 +1,29 @@
+<p>
+  <strong>Type:</strong>
+  <% if @ticket_type.is_seat %>
+  Seat
+      <% else %>
+  Normal
+      <% end %>
+</p>
+<p>
+  <strong>Name:</strong>
+  <%= @ticket_type.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @ticket_type.description %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @ticket_type.price %>
+</p>
+
+<p>
+  <strong>Free/total</strong>
+  0/0
+</p>
+<%= link_to 'Edit', edit_admin_ticket_type_path(@ticket_type) %> |
+<%= link_to 'Back', admin_ticket_types_path %>

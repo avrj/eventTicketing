@@ -1,0 +1,113 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/admin_session_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/admin_sessions_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/admins_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/customer/contact_information_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/models/customer.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/customer_sessions_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/customers_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/orders_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/seat_selector_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/seats_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/ticket_types_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/tickets_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/models/reservation.rb": [
+        1,
+        1,
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/models/seat.rb": [
+        1,
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/models/ticket.rb": [
+        1,
+        1,
+        1,
+        1,
+        null
+      ],
+      "/Users/avrj/Documents/Projektit/eventTicketing/app/models/ticket_type.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        1,
+        0,
+        null,
+        null,
+        1,
+        0,
+        null,
+        null
+      ]
+    },
+    "timestamp": 1429258268
+  }
+}

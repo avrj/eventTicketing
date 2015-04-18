@@ -1,0 +1,36 @@
+<p>
+  <strong>Type:</strong>
+  <%= link_to @ticket.ticket_type.name, admin_ticket_type_path(@ticket.ticket_type) %>
+  <button class="btn btn-primary">Change type</button>
+</p>
+<p>
+  <strong>Status:</strong>
+  <% if @ticket.reservation.nil? %>
+    <span class="label label-success">Free</span>
+      <button class="btn btn-primary">Add to Order</button>
+<% else %>
+    Reserved to <%= link_to @ticket.reservation.customer.firstname, admin_customer_path(@ticket.reservation.customer) %> as <%= link_to 'Order', admin_order_path(@ticket.reservation) %>
+      <button class="btn btn-danger">Release</button> or <button class="btn btn-danger">Change customer</button>
+  <% end %>
+</p>
+<p>
+  <strong>Code:</strong>
+  <%= @ticket.code %>
+  <button class="btn btn-danger">Generate new code</button>
+</p>
+
+<p>
+  <strong>Given away:</strong>
+  <% if @ticket.given_away %>
+      Yes
+      <button class="btn btn-danger">Mark as not given away</button>
+      <% else %>
+      No
+      <button class="btn btn-danger">Mark as given away</button>
+      <% end %>
+</p>
+
+<button class="btn btn-danger">Destroy</button>
+
+<%= link_to 'Edit', edit_admin_ticket_path(@ticket) %> |
+<%= link_to 'Back', admin_tickets_path %>
