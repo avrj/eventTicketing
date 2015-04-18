@@ -56,7 +56,7 @@ class Admin::CustomersController < Admin::BaseController
       if @customer.authenticate(customer_params[:current_password])
           respond_to do |format|
             if @customer.update(customer_edit_params)
-              format.html { redirect_to admin_customer_path(@customer)g, notice: 'Customer was successfully updated.' }
+              format.html { redirect_to admin_customer_path(@customer)gg, notice: 'Customer was successfully updated.' }
               format.json { render :show, status: :ok, location: @customer }
             else
               format.html { render :edit }
