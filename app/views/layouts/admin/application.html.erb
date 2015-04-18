@@ -4,17 +4,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Event Reserving System" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Event Reserving System" %>">
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'admin/base', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-      <header>
-        <%= render 'layouts/admin/navigation' %>
-      </header>
-    <main role="main">
-       <%= render 'layouts/admin/messages' %>
-       <%= yield %>
-    </main>
+  <%= render 'layouts/admin/top_navigation' %>
+
+  <div class="container-fluid">
+    <div class="row">
+      <%= render 'layouts/admin/side_navigation' %>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <%= render 'layouts/admin/messages' %>
+        <main role="main">
+        <%= yield %>
+            </main>
+      </div>
+    </div>
+  </div>
   </body>
 </html>

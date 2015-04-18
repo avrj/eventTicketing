@@ -9,6 +9,8 @@ class Admin::TicketTypesController < Admin::BaseController
   # GET /ticket_types/1
   # GET /ticket_types/1.json
   def show
+    @tickets = Ticket.where(:ticket_type => @ticket_type) unless @ticket_type.is_seat
+    @seats = Seat.joins(:ticket).where("tickets.ticket_type_id = " + @ticket_type.id.to_s) if @ticket_type.is_seat
   end
 
   # GET /ticket_types/new
@@ -55,7 +57,7 @@ class Admin::TicketTypesController < Admin::BaseController
   def destroy
     @ticket_type.destroy
     respond_to do |format|
-      format.html { redirect_to ticket_types_url, notice: 'Ticket type was successfully destroyed.' }
+      format.html { redirect_to admin_ticket_types_url, notice: 'Ticket type was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

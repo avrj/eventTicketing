@@ -1,10 +1,7 @@
+<h1 class="page-header">Order by <%= link_to @order.customer.firstname, admin_customer_path(@order.customer) %></h1>
 <p>
   <strong>Status:</strong>
   <% if @order.paid %><span class="label label-success">paid</span><% else %><span class="label label-danger">unpaid</span><% end %>
-</p>
-<p>
-  <strong>Customer:</strong>
-  <%= link_to @order.customer.firstname, admin_customer_path(@order.customer) %>
 </p>
 
 <% if @tickets.count > 0 %>

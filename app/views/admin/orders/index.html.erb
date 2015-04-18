@@ -1,11 +1,13 @@
-<h1>Listing Orders</h1>
+<h1 class="page-header">Orders</h1>
 
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Created at</th>
       <th>Customer</th>
       <th>Status</th>
+      <th>Tickets</th>
+      <th>Total price</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +18,9 @@
         <td><%= order.created_at %></td>
         <th><%= link_to order.customer.firstname, admin_customer_path(order.customer) %></th>
         <td><% if order.paid %><span class="label label-success">paid</span><% else %><span class="label label-danger">unpaid</span><% end %></td>
+
+        <td><%= order.tickets.count %></td>
+        <td><%= number_to_currency(order.total) %></td>
         <td><%= link_to 'Show', admin_order_path(order) %></td>
         <td><%= link_to 'Edit', edit_admin_order_path(order) %></td>
         <td><%= link_to 'Destroy', admin_order_path(order), method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -23,7 +28,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Reservation', new_admin_order_path, class: "btn btn-primary" %>

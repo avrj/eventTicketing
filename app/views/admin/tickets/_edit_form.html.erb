@@ -2,6 +2,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.association :ticket_type, collection: @ticket_types, priority: @ticket.ticket_type %>
     <%= f.input :code %>
     <%= f.input :given_away %>
   </div>

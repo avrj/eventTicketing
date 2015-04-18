@@ -59,8 +59,9 @@ class Admin::OrdersController < Admin::BaseController
   # DELETE /orders/1.json
   def destroy
     @order.destroy
+
     respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Reservation was successfully destroyed.' }
+      format.html { redirect_to admin_orders_url, notice: 'Reservation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

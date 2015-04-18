@@ -1,11 +1,11 @@
-<h1>Editing Customer <%= @customer.id %></h1>
+<h1 class="page-header">Editing Customer <%= link_to @customer.firstname, admin_customer_path(@customer) %></h1>
 
 <%= simple_form_for(@customer, url: admin_customer_path) do |f| %>
     <%= f.error_notification %>
 
     <div class="form-inputs">
       <%= f.input :email, placeholder: 'user@domain.com' %>
-      <h2>Change your personal details</h2>
+      <h2 class="sub-header">Change your personal details</h2>
       <%= f.input :firstname %>
       <%= f.input :lastname %>
       <%= f.input :address, placeholder: 'Esimerkkikatu 1 A 12' %>
@@ -14,12 +14,10 @@
       <%= f.input :phone, placeholder: '+358401234567' %>
       <%= f.input :age %>
       <%= f.input :gender %>
-      <h2>Change password</h2>
-      <p>Leave these fields blank to keep your current password.</p>
+      <h2 class="sub-header">Change password</h2>
+      <p>Leave these fields blank to keep the current password.</p>
       <%= f.input :password, label: 'New password' %>
       <%= f.input :password_confirmation, label: 'Retype the new password' %>
-      <p>Enter your current password to continue.</p>
-      <%= f.input :current_password %>
     </div>
 
     <div class="form-actions">

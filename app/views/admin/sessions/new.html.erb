@@ -1,7 +1,11 @@
-<h1>Admin Sign in</h1>
-
-<%= form_tag admin_session_path do %>
-    username <%= text_field_tag :username, params[:username] %>
-    password <%= password_field_tag :password, params[:password] %>
-    <%= submit_tag "Log in", class: "btn btn-default" %>
-<% end %>
+ <%= form_tag admin_session_path, class: "form-signin" do %>
+  <h2 class="form-signin-heading">Please sign in</h2>
+  <%= text_field_tag :username, params[:username], class: "form-control", placeholder: "Username" %>
+      <%= password_field_tag :password, params[:password], class: "form-control", placeholder: "Password" %>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+  </div>
+      <%= submit_tag "Sign in", class: "btn btn-lg btn-primary btn-block" %>
+  <% end %>

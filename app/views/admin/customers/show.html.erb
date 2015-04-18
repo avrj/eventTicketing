@@ -1,46 +1,41 @@
-<p>
-  <strong>Email:</strong>
-  <%= @customer.email %>
-</p>
-<p>
-  <strong>Firstname:</strong>
-  <%= @customer.firstname %>
-</p>
+<h1 class="page-header"><%= @customer.firstname %> <%= @customer.lastname %></h1>
 
-<p>
-  <strong>Lastname:</strong>
-  <%= @customer.lastname %>
-</p>
-
-<p>
-  <strong>Address:</strong>
-  <%= @customer.address %>
-</p>
-
-<p>
-  <strong>Postcode:</strong>
-  <%= @customer.postcode %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @customer.city %>
-</p>
-
-<p>
-  <strong>Phone:</strong>
-  <%= @customer.phone %>
-</p>
-
-<p>
-  <strong>Age:</strong>
-  <%= @customer.age %>
-</p>
-
-<p>
-  <strong>Gender:</strong>
-  <%= @customer.gender %>
-</p>
+<table class="table">
+  <tbody>
+      <tr>
+          <th>Email</th>
+          <td><%= @customer.email %></td>
+      </tr>
+      <tr>
+        <th>Address</th>
+        <td><%= @customer.address %></td>
+      </tr>
+      <tr>
+        <th>Postcode</th>
+        <td><%= @customer.postcode %></td>
+      </tr>
+      <tr>
+        <th>City</th>
+        <td><%= @customer.city %></td>
+      </tr>
+      <tr>
+        <th>Phone</th>
+        <td><%= @customer.phone %></td>
+      </tr>
+      <tr>
+        <th>Age</th>
+        <td><%= @customer.age %></td>
+      </tr>
+      <tr>
+        <th>Gender</th>
+        <td><%= @customer.gender %></td>
+      </tr>
+      <tr>
+        <th>Registered at</th>
+        <td><%= @customer.created_at %></td>
+      </tr>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_admin_customer_path(@customer) %> |
 <%= link_to 'Back', admin_customers_path %>

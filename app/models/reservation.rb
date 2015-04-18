@@ -1,6 +1,6 @@
 class Reservation < ActiveRecord::Base
   belongs_to :customer
-  has_many :tickets
+  has_many :tickets, dependent: :nullify
 
   def total
     # 1. hae ticketit joiden reservation id on sama kuin order.id
@@ -15,4 +15,5 @@ class Reservation < ActiveRecord::Base
 
     sum
   end
+
 end

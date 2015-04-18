@@ -1,4 +1,6 @@
 class Admin::SessionsController < ApplicationController
+  layout 'login'
+
   def new
     # renderöi kirjautumissivun
   end

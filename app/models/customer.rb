@@ -1,8 +1,8 @@
 class Customer < ActiveRecord::Base
   enum gender: [ :male, :female ]
 
-  has_many :reservations
-  has_many :tickets, through: :Reservation
+  has_many :reservations, dependent: :destroy
+  has_many :tickets, through: :reservation
   has_many :seats
 
   validates :email, email: true, uniqueness: true

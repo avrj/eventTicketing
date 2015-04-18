@@ -53,19 +53,19 @@ class Admin::CustomersController < Admin::BaseController
   # PATCH/PUT /customers/1
   # PATCH/PUT /customers/1.json
   def update
-      if @customer.authenticate(customer_params[:current_password])
-          respond_to do |format|
-            if @customer.update(customer_edit_params)
-              format.html { redirect_to admin_customer_path(@customer)gg, notice: 'Customer was successfully updated.' }
-              format.json { render :show, status: :ok, location: @customer }
-            else
-              format.html { render :edit }
-              format.json { render json: @customer.errors, status: :unprocessable_entity }
-            end
-          end
+    if customer_params[:password].empty? && customer_params[:password_confirmation].empty?
+      if @customer.update(customer_params_without_new_password)
+        redirect_to admin_customer_path(@customer), notice: 'Customer was successfully updated.'
       else
-        redirect_to :back, alert: 'Wrong password.'
+        render :edit
       end
+    else
+      if @customer.update(customer_params_with_new_password)
+        redirect_to admin_customer_path(@customer), notice: 'Customer was successfully updated.'
+      else
+        render :edit
+      end
+    end
   end
 
   # DELETE /customers/1
@@ -73,7 +73,7 @@ class Admin::CustomersController < Admin::BaseController
   def destroy
     @customer.destroy
     respond_to do |format|
-      format.html { redirect_to customers_url, notice: 'Customer was successfully destroyed.' }
+      format.html { redirect_to admin_customers_url, notice: 'Customer was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -84,12 +84,16 @@ class Admin::CustomersController < Admin::BaseController
       @customer = Customer.find(params[:id])
     end
 
-  def customer_edit_params
+  def customer_params_without_new_password
+    params.require(:customer).permit(:email, :firstname, :lastname, :address, :postcode, :city, :phone, :age, :gender)
+  end
+
+  def customer_params_with_new_password
     params.require(:customer).permit(:email, :password, :password_confirmation, :firstname, :lastname, :address, :postcode, :city, :phone, :age, :gender)
   end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def customer_params
-      params.require(:customer).permit(:email, :password, :password_confirmation, :current_password, :firstname, :lastname, :address, :postcode, :city, :phone, :age, :gender)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def customer_params
+    params.require(:customer).permit(:email, :password, :password_confirmation, :current_password, :firstname, :lastname, :address, :postcode, :city, :phone, :age, :gender)
+  end
 end

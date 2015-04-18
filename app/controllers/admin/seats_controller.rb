@@ -20,6 +20,10 @@ class Admin::SeatsController < Admin::BaseController
 
   # GET /seats/1/edit
   def edit
+    @ticket_types = TicketType.where("is_seat IS NOT NULL")
+    @seat.code = Ticket.find_by(seat: @seat).code
+    @seat.given_away = Ticket.find_by(seat: @seat).given_away
+    @seat.ticket_type = Ticket.find_by(seat: @seat).ticket_type_id
   end
 
   # POST /seats
@@ -49,8 +53,14 @@ class Admin::SeatsController < Admin::BaseController
   def update
     respond_to do |format|
       if @seat.update(seat_params)
-        format.html { redirect_to admin_seat_path(@seat), notice: 'Seat was successfully updated.' }
-        format.json { render :show, status: :ok, location: @seat }
+        @ticket = Ticket.find_by(seat: @seat)
+        if @ticket.update(code: seat_params[:code], given_away: seat_params[:given_away], ticket_type_id: seat_params[:ticket_type])
+          format.html { redirect_to admin_seat_path(@seat), notice: 'Seat was successfully updated.' }
+          format.json { render :show, status: :ok, location: @seat }
+        else
+          format.html { render :edit }
+          format.json { render json: @seat.errors, status: :unprocessable_entity }
+        end
       else
         format.html { render :edit }
         format.json { render json: @seat.errors, status: :unprocessable_entity }
@@ -63,7 +73,7 @@ class Admin::SeatsController < Admin::BaseController
   def destroy
     @seat.destroy
     respond_to do |format|
-      format.html { redirect_to seats_url, notice: 'Seat was successfully destroyed.' }
+      format.html { redirect_to admin_seats_url, notice: 'Seat was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
