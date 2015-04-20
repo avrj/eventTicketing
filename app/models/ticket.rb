@@ -4,4 +4,5 @@ class Ticket < ActiveRecord::Base
   belongs_to :reservation
 
   validates :code, uniqueness: true
+  validates :ticket_type, :presence => true
 end

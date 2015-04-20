@@ -2,6 +2,7 @@ class Admin::SessionsController < ApplicationController
   layout 'login'
 
   def new
+    redirect_to admin_orders_path if current_admin_user
     # renderöi kirjautumissivun
   end
 
@@ -20,6 +21,6 @@ class Admin::SessionsController < ApplicationController
     # nollataan sessio
     session[:admin_user_id] = nil
     # uudelleenohjataan sovellus pääsivulle
-    redirect_to :root
+    redirect_to admin_root_path, notice: "You have been signed out."
   end
 end

@@ -1,41 +1,44 @@
 <h1 class="page-header">Customers</h1>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>Address</th>
-      <th>Postcode</th>
-      <th>City</th>
-      <th>Phone</th>
-      <th>Age</th>
-      <th>Gender</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% if !@customers.any? %>
+    <p>Looks like there are no customers yet.</p>
+<% else %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Address</th>
+          <th>Postcode</th>
+          <th>City</th>
+          <th>Phone</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @customers.each do |customer| %>
-      <tr>
-        <td><%= customer.email %></td>
-        <td><%= customer.firstname %></td>
-        <td><%= customer.lastname %></td>
-        <td><%= customer.address %></td>
-        <td><%= customer.postcode %></td>
-        <td><%= customer.city %></td>
-        <td><%= customer.phone %></td>
-        <td><%= customer.age %></td>
-        <td><%= customer.gender %></td>
-        <td><%= link_to 'Show', admin_customer_path(customer) %></td>
-        <td><%= link_to 'Edit', edit_admin_customer_path(customer) %></td>
-        <td><%= link_to 'Destroy', admin_customer_path(customer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+      <tbody>
+        <% @customers.each do |customer| %>
+          <tr>
+            <td><%= customer.email %></td>
+            <td><%= customer.firstname %></td>
+            <td><%= customer.lastname %></td>
+            <td><%= customer.address %></td>
+            <td><%= customer.postcode %></td>
+            <td><%= customer.city %></td>
+            <td><%= customer.phone %></td>
+            <td><%= customer.age %></td>
+            <td><%= customer.gender %></td>
+            <td><%= link_to 'Show', admin_customer_path(customer) %></td>
+            <td><%= link_to 'Edit', edit_admin_customer_path(customer) %></td>
+            <td><%= link_to 'Destroy', admin_customer_path(customer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+<% end %>
 <br>
 
 <%= link_to 'New Customer', new_admin_customer_path, class: "btn btn-primary" %>

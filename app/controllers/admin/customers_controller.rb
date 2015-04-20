@@ -1,5 +1,6 @@
 class Admin::CustomersController < Admin::BaseController
   before_action :set_customer, only: [:show, :edit, :update, :destroy, :tickets, :orders, :seats]
+  before_action :ensure_that_admin_is_superuser, only: [:create, :edit, :update, :destroy]
 
   # GET /customers
   # GET /customers.json

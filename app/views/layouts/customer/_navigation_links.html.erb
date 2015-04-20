@@ -1,8 +1,6 @@
-<%# add navigation links to this file %>
-
-<li><%= link_to 'Tickets', tickets_path %></li>
 <li><%= link_to 'Seats', seats_path %></li>
-<li><%= link_to 'Shopping cart' + shopping_cart_count, shopping_cart_path %></li>
+<li><%= link_to 'Tickets', tickets_path %></li>
+<li><span class="glyphicon glyphicon-user" aria-hidden="true"></span> <%= link_to 'Shopping cart' + shopping_cart_count, shopping_cart_path %></li>
 <li><%= link_to 'My Orders', customer_orders_path %></li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Logged in as X <span class="caret"></span></a>

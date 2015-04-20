@@ -24,10 +24,11 @@
 
 <p>
   <strong>Reserved/Free/total</strong>
-<%= @ticket_type.reserved.count %>/<%= @ticket_type.free.count %>/<%= @ticket_type.total.count %></td>
+<%= @ticket_type.reserved.count %>/<%= @ticket_type.free.count %>/<%= @ticket_type.tickets.count %></td>
 </p>
 
 <% if @ticket_type.is_seat %>
+    <% if @seats.any? %>
 <h2 class="sub-header">Seats</h2>
     <table class="table table-striped">
       <thead>
@@ -70,7 +71,9 @@
       <% end %>
       </tbody>
     </table>
+        <% end %>
 <% else %>
+    <% if @tickets.any? %>
 <h2 class="sub-header">Tickets</h2>
     <table class="table table-striped">
       <thead>
@@ -105,6 +108,7 @@
       <% end %>
       </tbody>
     </table>
+        <% end %>
 <% end %>
 
 

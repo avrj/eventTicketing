@@ -12,15 +12,15 @@
 
   <tbody>
   <% @ticket_types.each do |ticket_type| %>
-    <% if ticket_type.total.count > 0 %>
+    <% if ticket_type.tickets.count > 0 %>
       <tr>
         <td><%= ticket_type.name %></td>
         <% if ticket_type.free.count > 0 %>
-        <td><input type="number" name="tickets[<%= ticket_type.id %>]" min="0" max="<%= ticket_type.free.count %>" value="0" /></td>
+        <td><input type="number" name="tickets[<%= ticket_type.id %>]" min="0" max="<%= ticket_type.free.count %>" value="0" class="form-control" /></td>
         <% else %>
         <td>-</td>
             <% end %>
-            <td><%= ticket_type.free.count %> / <%= ticket_type.total.count %></td>
+            <td><%= ticket_type.free.count %> / <%= ticket_type.tickets.count %></td>
         <td><%= number_to_currency(ticket_type.price) %></td>
       </tr>
     <% end %>

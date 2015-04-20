@@ -1,5 +1,6 @@
 class Admin::UsersController < Admin::BaseController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_admin_is_superuser, only: [:create, :edit, :update, :destroy]
 
   # GET /admins
   # GET /admins.json

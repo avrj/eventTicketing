@@ -1,29 +1,28 @@
 <h1 class="page-header">Seat</h1>
 
-<p>
-  <strong>Table:</strong>
-  <%= @seat.table %>
-</p>
-
-<p>
-  <strong>Seat:</strong>
-  <%= @seat.seat %>
-</p>
-
-<p>
-  <strong>X:</strong>
-  <%= @seat.x %>
-</p>
-
-<p>
-  <strong>Y:</strong>
-  <%= @seat.y %>
-</p>
-
-<p>
-  <strong>Angle:</strong>
-  <%= @seat.angle %>
-</p>
-
+<table class="table">
+  <tbody>
+  <tr>
+    <th>Table</th>
+    <td><%= @seat.table %></td>
+  </tr>
+  <tr>
+    <th>Seat</th>
+    <td><%= @seat.seat %></td>
+  </tr>
+  <tr>
+    <th>X</th>
+    <td><%= @seat.x %></td>
+  </tr>
+  <tr>
+    <th>Y</th>
+    <td><%= @seat.y %></td>
+  </tr>
+  <tr>
+    <th>Angle</th>
+    <td><%= @seat.angle %></td>
+  </tr>
+  </tbody>
+</table>
 <%= link_to 'Edit', edit_admin_seat_path(@seat) %> |
 <%= link_to 'Back', admin_seats_path %>

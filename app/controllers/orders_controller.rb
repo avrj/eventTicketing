@@ -29,5 +29,4 @@ class OrdersController < ApplicationController
 
     redirect_to customer_order_path(@order), notice: 'Order completed.'
   end
-
 end

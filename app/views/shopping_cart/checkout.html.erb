@@ -1,63 +1,105 @@
-<h1>Checkout</h1>
+<div class="stepwizard" style="position: fixed; bottom: 0; background-color: #eee; z-index: 100;">
+  <div class="stepwizard-row">
+    <div class="stepwizard-step">
+      <%= button_to '1', seats_path, :method => :get, class: 'btn btn-default btn-circle' %>
+      <p>Select seats</p>
+    </div>
+    <div class="stepwizard-step">
+      <%= button_to '2', tickets_path, :method => :get, class: 'btn btn-default btn-circle' %>
+      <p>Select tickets</p>
+    </div>
+    <div class="stepwizard-step">
+      <%= button_to '3', shopping_cart_path, :method => :get, class: 'btn btn-default btn-circle' %>
+      <p>Shopping Cart</p>
+    </div>
+    <div class="stepwizard-step">
+      <button type="button" class="btn btn-primary btn-circle">4</button>
+      <p>Checkout</p>
+    </div>
+    <div class="stepwizard-step">
+      <button type="button" class="btn btn-default btn-circle" disabled="disabled">5</button>
+      <p>Payment</p>
+    </div>
+    <div class="stepwizard-step">
+      <button type="button" class="btn btn-default btn-circle" disabled="disabled">6</button>
+      <p>Order Confirmation</p>
+    </div>
+  </div>
+</div>
 
-<% if @seats %>
-    <h2>Seats</h2>
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Type</th>
-        <th>Table</th>
-        <th>Seat</th>
-        <th>Price</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <% @seats.each do |seat| %>
+<div class="container">
+  <div class="row">
+    <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+      <h1 class="page-header">Checkout</h1>
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+          <address>
+            <strong><%= current_customer_user.firstname %> <%= current_customer_user.lastname %></strong>
+            <br>
+            <%= current_customer_user.address %>
+            <br>
+            <%= current_customer_user.postcode %> <%= current_customer_user.city %>
+            <br>
+            <abbr title="Phone">P:</abbr> <%= current_customer_user.phone %>
+          </address>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <p>Please review your order before proceeding.</p>
+        </div>
+        </span>
+        <%= form_tag orders_path do %>
+        <table class="table table-hover">
+          <thead>
           <tr>
-            <td><%= seat.ticket.ticket_type.name %></td>
-            <td><%= seat.table %></td>
-            <td><%= seat.seat %></td>
-            <td><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
+            <th>Product</th>
+            <th>#</th>
+            <th class="text-center">Price</th>
+            <th class="text-center">Total</th>
           </tr>
-      <% end %>
-      </tbody>
-    </table>
-<% end %>
-<% if @tickets %>
-    <h2>Tickets</h2>
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Subtotal</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <% @ticket_types.each do |ticket_type| %>
-          <% if @tickets[ticket_type.id.to_s].to_i > 0 %>
-              <tr>
-                <td><%= ticket_type.name %></td>
-                <td><%= @tickets[ticket_type.id.to_s] %></td>
-                <td><%= number_to_currency(ticket_type.price) %></td>
-                <td><%= number_to_currency(ticket_type.price * @tickets[ticket_type.id.to_s].to_i) %></td>
-              </tr>
+          </thead>
+          <tbody>
+          <% if @seats %>
+                <% @seats.each do |seat| %>
+                    <tr>
+                      <td class="col-md-9"><%= seat.ticket.ticket_type.name %>, <%= seat.table %>.<%= seat.seat %></td>
+                      <td class="col-md-1">1</td>
+                      <td class="col-md-1 text-center"><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
+                      <td class="col-md-1 text-center"><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
+                    </tr>
+                <% end %>
           <% end %>
-      <% end %>
-      </tbody>
-    </table>
-<% end %>
-
-<p><strong>Total:</strong> <%= number_to_currency(@shopping_cart_total_price) %></p>
-
-<%= form_tag orders_path do %>
-    <%= check_box_tag 'is_paid' %> <%= label_tag 'paid', 'Is paid?' %><br />
-    <%= submit_tag 'Confirm order' %>
-<% end %>
-
+          <% if @tickets %>
+                <% @ticket_types.each do |ticket_type| %>
+                    <% if @tickets[ticket_type.id.to_s].to_i > 0 %>
+                        <tr>
+                          <td class="col-md-9"><%= ticket_type.name %></td>
+                          <td class="col-md-1"><%= @tickets[ticket_type.id.to_s] %></td>
+                          <td class="col-md-1 text-center"><%= number_to_currency(ticket_type.price) %></td>
+                          <td class="col-md-1 text-center"><%= number_to_currency(ticket_type.price * @tickets[ticket_type.id.to_s].to_i) %></td>
+                        </tr>
+                    <% end %>
+                <% end %>
+          <% end %>
+          <tr>
+            <td>   </td>
+            <td>   </td>
+            <td class="text-center" colspan="2"><%= check_box_tag 'is_paid' %> <%= label_tag 'paid', 'Mark as paid?' %></td>
+          </tr>
+          <tr>
+            <td>   </td>
+            <td>   </td>
+            <td class="text-right"><h4><strong>Total: </strong></h4></td>
+            <td class="text-center text-danger"><h4><strong><%= number_to_currency(@shopping_cart_total_price) %></strong></h4></td>
+          </tr>
+          </tbody>
+        </table>
+            <%= submit_tag 'Confirm Order', class: 'btn btn-success btn-lg btn-block' %>
+        <% end %>
 <br />
-
-<%= link_to 'Back to shopping cart', shopping_cart_path %>
+        <%= link_to 'Back to shopping cart', shopping_cart_path %>
+      </div>
+    </div>
+  </div>
+</div>

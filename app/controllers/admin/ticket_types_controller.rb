@@ -1,5 +1,7 @@
 class Admin::TicketTypesController < Admin::BaseController
   before_action :set_ticket_type, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_admin_is_superuser, only: [:create, :edit, :update, :destroy]
+
   # GET /ticket_types
   # GET /ticket_types.json
   def index

@@ -1,6 +1,6 @@
 class ShoppingCartController < ApplicationController
   def index
-    @seats = Seat.where(:id => session[:seats]).joins(:ticket).where('tickets.reservation_id is null')
+    @seats = Seat.where(:id => session[:seats]).joins(:ticket).where('tickets.reservation_id is null').order(table: :asc, seat: :asc)
     @shopping_cart_total_price = 0
 
     @seats.each do |seat|
@@ -19,7 +19,11 @@ class ShoppingCartController < ApplicationController
       count = 0;
 
       params[:tickets].each do |ticket, quantity|
-        count += quantity.to_i
+        if quantity.to_i > 0
+          count += quantity.to_i
+        else
+          params[:tickets].delete ticket
+          end
       end
 
       if count > 0
@@ -64,7 +68,7 @@ class ShoppingCartController < ApplicationController
   def checkout
     redirect_to login_or_register_path, alert:'you should be signed in' if current_customer_user.nil?
 
-    @seats = Seat.where(:id => session[:seats]).joins(:ticket).where('tickets.reservation_id is null')
+    @seats = Seat.where(:id => session[:seats]).joins(:ticket).where('tickets.reservation_id is null').order(table: :asc, seat: :asc)
     @shopping_cart_total_price = 0
 
     @seats.each do |seat|
@@ -72,6 +76,8 @@ class ShoppingCartController < ApplicationController
     end
 
     @tickets = session[:tickets]
+
+    @tickets.each { |ticket_type_id, quantity| @shopping_cart_total_price += TicketType.find(ticket_type_id).price.to_i * quantity.to_i } unless @tickets.nil?
 
     @ticket_types = TicketType.where(:id => @tickets.keys) unless @tickets.nil?
   end

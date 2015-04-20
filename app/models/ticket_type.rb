@@ -5,10 +5,6 @@ class TicketType < ActiveRecord::Base
   validates :description, presence: true
   validates :price, presence: true
 
-  def total
-    Ticket.where(ticket_type: self)
-  end
-
   def free
     Ticket.where(ticket_type: self, reservation: nil)
   end

@@ -1,5 +1,7 @@
 class Admin::OrdersController < Admin::BaseController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_admin_is_superuser, only: [:create, :edit, :update, :destroy]
+
 
   # GET /orders
   # GET /orders.json

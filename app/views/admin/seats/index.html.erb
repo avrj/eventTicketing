@@ -1,5 +1,8 @@
 <h1 class="page-header">Seats</h1>
 
+<% if !@seats.any? %>
+    <p>Looks like there are no seats yet.</p>
+<% else %>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -43,7 +46,7 @@
     <% end %>
   </tbody>
 </table>
-
+<% end %>
 <br>
 
 <%= link_to 'New Seat', new_admin_seat_path, class: "btn btn-primary" %>

@@ -1,7 +1,6 @@
 class Customer::SeatSelectorController < ApplicationController
 	def index
-    @seats = Seat.all
-    @ticket_types = TicketType.all
-    @customer = Customer.new
+    @seats = TicketType.where(is_seat: true)
+    @tickets = TicketType.where(is_seat: nil)
 	end
 end

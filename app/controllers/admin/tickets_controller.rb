@@ -1,5 +1,6 @@
 class Admin::TicketsController < Admin::BaseController
   before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_admin_is_superuser, only: [:create, :edit, :update, :destroy]
 
   # GET /tickets
   # GET /tickets.json

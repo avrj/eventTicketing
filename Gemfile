@@ -33,8 +33,6 @@ gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'simplecov', require: false
-
 gem 'bootstrap-sass'
 
 gem 'jquery-turbolinks'
@@ -74,11 +72,12 @@ group :production do
 end
 
 group :test do
+  gem 'simplecov', require: false
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
   #gem 'selenium-webdriver'
-  #gem 'database_cleaner'
+  gem 'database_cleaner'
 end
 
 group :development do

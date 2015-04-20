@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
+  let(:customer){ FactoryGirl.create(:customer) }
+
   describe "with a proper password" do
-    let(:customer){ FactoryGirl.create(:customer) }
 
     it "is saved" do
       expect(customer).to be_valid

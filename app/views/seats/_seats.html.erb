@@ -20,9 +20,9 @@
       <tr style="color: #c0c0c0;">
   <% end %>
         <% if seat.ticket.reservation.nil? %>
-        <td><input type="checkbox" name="seats[]" value="<%= seat.id %>" /></td>
+        <td><input type="checkbox" name="seats[]" value="<%= seat.id %>" class="form-control" /></td>
             <% else %>
-            <td><input type="checkbox" name="seats[]" value="<%= seat.id %>" disabled="disabled" /></td>
+            <td><input type="checkbox" name="seats[]" value="<%= seat.id %>" class="form-control" disabled="disabled" /></td>
             <% end %>
         <td><%= seat.ticket.ticket_type.name %></td>
         <td><%= seat.table %></td>

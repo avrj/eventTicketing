@@ -1,10 +1,9 @@
 class Reservation < ActiveRecord::Base
   belongs_to :customer
   has_many :tickets, dependent: :nullify
+  validates :customer, :presence => true
 
   def total
-    # 1. hae ticketit joiden reservation id on sama kuin order.id
-    # 2. hae jokaisen ticketin hinta ja plussaa ne
     sum = 0
 
     tickets = Ticket.where(reservation: self)
@@ -13,7 +12,7 @@ class Reservation < ActiveRecord::Base
       sum += ticket.ticket_type.price
     end
 
-    sum
+    return sum
   end
 
 end

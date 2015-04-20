@@ -19,11 +19,7 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    if count > 0
-      return " (" + count.to_s + ")"
-    else
-      return ""
-    end
+    return count
   end
 
   def current_admin_user
@@ -47,5 +43,9 @@ class ApplicationController < ActionController::Base
 
   def ensure_that_customer_is_not_signed_in
     redirect_to customer_orders_path if current_customer_user
+  end
+
+  def ensure_that_admin_is_superuser
+    redirect_to :back, alert:'You don\'t have enough privileges to do that.' if current_admin_user.level != 1
   end
 end

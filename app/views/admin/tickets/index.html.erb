@@ -1,38 +1,42 @@
 <h1 class="page-header">Tickets</h1>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Code</th>
-      <th>Status</th>
-      <th>Given away</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% if !@tickets.any? %>
+    <p>Looks like there are no tickets yet.</p>
+<% else %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Code</th>
+          <th>Status</th>
+          <th>Given away</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @tickets.each do |ticket| %>
-      <tr>
-        <td><%= link_to ticket.ticket_type.name, admin_ticket_type_path(ticket.ticket_type) %></td>
-        <td><%= ticket.code %></td>
-        <% if ticket.reservation.nil? %>
-        <td><span class="label label-success">Free</span></td>
-            <% else %>
-            <td>Reserved to <%= link_to ticket.reservation.customer.firstname, admin_customer_path(ticket.reservation.customer) %> as <%= link_to 'Order', admin_order_path(ticket.reservation) %></td>
+      <tbody>
+        <% @tickets.each do |ticket| %>
+          <tr>
+            <td><%= link_to ticket.ticket_type.name, admin_ticket_type_path(ticket.ticket_type) %></td>
+            <td><%= ticket.code %></td>
+            <% if ticket.reservation.nil? %>
+            <td><span class="label label-success">Free</span></td>
+                <% else %>
+                <td>Reserved to <%= link_to ticket.reservation.customer.firstname, admin_customer_path(ticket.reservation.customer) %> as <%= link_to 'Order', admin_order_path(ticket.reservation) %></td>
+                <% end %>
+            <% if ticket.given_away %>
+                <td>Given away</td>
+                <% else %>
+                <td>Not</td>
             <% end %>
-        <% if ticket.given_away %>
-            <td>Given away</td>
-            <% else %>
-            <td>Not</td>
+            <td><%= link_to 'Show', admin_ticket_path(ticket) %></td>
+            <td><%= link_to 'Edit', edit_admin_ticket_path(ticket) %></td>
+            <td><%= link_to 'Destroy', admin_ticket_path(ticket), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
         <% end %>
-        <td><%= link_to 'Show', admin_ticket_path(ticket) %></td>
-        <td><%= link_to 'Edit', edit_admin_ticket_path(ticket) %></td>
-        <td><%= link_to 'Destroy', admin_ticket_path(ticket), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      </tbody>
+    </table>
+<% end %>
 
 <br>
 
