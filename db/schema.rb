@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402163018) do
+ActiveRecord::Schema.define(version: 20150424113458) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "username"
     t.string   "password_digest"
-    t.integer  "level"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "level",           default: 0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "customers", force: :cascade do |t|
@@ -30,16 +30,16 @@ ActiveRecord::Schema.define(version: 20150402163018) do
     t.string   "postcode"
     t.string   "city"
     t.string   "phone"
-    t.integer  "age"
-    t.integer  "gender"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.date     "date_of_birth"
+    t.integer  "gender",          default: 0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "reservations", force: :cascade do |t|
-    t.boolean  "paid"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.boolean  "paid",        default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "customer_id"
   end
 
@@ -57,16 +57,16 @@ ActiveRecord::Schema.define(version: 20150402163018) do
     t.string   "name"
     t.string   "description"
     t.decimal  "price"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.boolean  "is_seat"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "is_seat",     default: false
   end
 
   create_table "tickets", force: :cascade do |t|
     t.string   "code"
-    t.boolean  "given_away"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.boolean  "given_away",     default: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "reservation_id"
     t.integer  "ticket_type_id"
     t.integer  "seat_id"

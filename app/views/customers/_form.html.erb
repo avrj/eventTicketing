@@ -1,24 +1,24 @@
 <%= simple_form_for(@customer, url: customers_path) do |f| %>
-  <%= f.error_notification %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :email, placeholder: 'user@domain.com' %>
-    <%= f.input :firstname %>
-    <%= f.input :lastname %>
-    <%= f.input :address, placeholder: 'Esimerkkikatu 1 A 12' %>
-    <%= f.input :postcode, placeholder: '01800' %>
-    <%= f.input :city, placeholder: 'Helsinki' %>
-    <%= f.input :phone, placeholder: '+358401234567' %>
+    <div class="form-inputs">
+      <%= f.input :email, placeholder: 'user@domain.com' %>
+      <%= f.input :firstname %>
+      <%= f.input :lastname %>
+      <%= f.input :address, placeholder: 'Esimerkkikatu 1 A 12' %>
+      <%= f.input :postcode, placeholder: '01800' %>
+      <%= f.input :city, placeholder: 'Helsinki' %>
+      <%= f.input :phone, placeholder: '+358401234567' %>
 
-    <%= f.input :age, collection: 12..60, prompt: "Select your age" %>
-    <%= f.label :gender %><br />
-    <%= f.collection_radio_buttons :gender, [[:male, 'Male'] ,[:female, 'Female']], :first, :last %>
-    <br />
-    <%= f.input :password %>
-    <%= f.input :password_confirmation %>
-  </div>
+      <%= f.input :date_of_birth, prompt: "Select your birth date", :start_year => Date.today.year-100, :end_year => Date.today.year-12, :order => [:day, :month, :year] %>
+      <%= f.label :gender %><br/>
+      <%= f.collection_radio_buttons :gender, [[:male, 'Male'], [:female, 'Female'], [:not_defined, 'Unknown']], :first, :last %>
+      <br/>
+      <%= f.input :password %>
+      <%= f.input :password_confirmation %>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
 <% end %>

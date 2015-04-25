@@ -1,15 +1,31 @@
-<h1 class="page-header">Editing Order by <%= link_to @order.customer.firstname, admin_customer_path(@order.customer) %></h1>
+<ol class="breadcrumb">
+  <li><%= link_to "Orders", admin_orders_path %></li>
+  <li><%= link_to "Order #"+@order.id.to_s, admin_order_path(@order) %></li>
+  <li class="active">Edit</li>
+</ol>
+
+<h1 class="page-header">Editing Order
+  by <%= link_to @order.customer.firstname, admin_customer_path(@order.customer) %></h1>
 
 <p>
   <strong>Status:</strong>
-  <% if @order.paid %><span class="label label-success">paid</span><% else %><span class="label label-danger">unpaid</span><% end %>
+  <% if @order.paid %><span class="label label-success">paid</span>
+  <% else %><span class="label label-danger">unpaid</span>
+  <% end %>
 </p>
-<p><% if @order.paid %><button class="btn btn-primary">Mark as unpaid</button><% else %><button class="btn btn-primary">Mark as paid</button><% end %></p>
+<p>
+  <% if @order.paid %>
+      <button class="btn btn-primary">Mark as unpaid</button>
+  <% else %>
+      <button class="btn btn-primary">Mark as paid</button>
+  <% end %></p>
 <p>
   <strong>Customer:</strong>
   <%= link_to @order.customer.firstname, admin_customer_path(@order.customer) %>
 </p>
-<p><button class="btn btn-danger">Change customer</button></p>
+<p>
+  <button class="btn btn-danger">Change customer</button>
+</p>
 
 <% if @tickets.count > 0 %>
     <div>
@@ -67,7 +83,10 @@
               <% else %>
                   <td>Unavailable</td>
               <% end %>
-              <td><button class="btn btn-danger">Remove seat</button> <button class="btn btn-danger">Generate new code</button></td>
+              <td>
+                <button class="btn btn-danger">Remove seat</button>
+                <button class="btn btn-danger">Generate new code</button>
+              </td>
             </tr>
         <% end %>
         </tbody>
@@ -79,7 +98,6 @@
   <p><strong>Total price:</strong> <%= number_to_currency @order.total %></p>
 </div>
 
-<p><button class="btn btn-danger">Destroy Order</button></p>
-
-<%= link_to 'Show', admin_order_path(@order) %> |
-<%= link_to 'Back to Orders', admin_orders_path %>
+<p>
+  <button class="btn btn-danger">Destroy Order</button>
+</p>

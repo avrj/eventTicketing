@@ -1,3 +1,9 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Customers", admin_customers_path %></li>
+  <li><%= link_to "Customer #"+@customer.id.to_s, admin_customer_path(@customer) %></li>
+  <li class="active">Edit</li>
+</ol>
+
 <h1 class="page-header">Editing Customer <%= link_to @customer.firstname, admin_customer_path(@customer) %></h1>
 
 <%= simple_form_for(@customer, url: admin_customer_path) do |f| %>
@@ -12,19 +18,17 @@
       <%= f.input :postcode, placeholder: '01800' %>
       <%= f.input :city, placeholder: 'Helsinki' %>
       <%= f.input :phone, placeholder: '+358401234567' %>
-      <%= f.input :age %>
-      <%= f.input :gender %>
+      <%= f.input :date_of_birth, prompt: "Select your birth date", :start_year => Date.today.year-100, :end_year => Date.today.year-12, :order => [:day, :month, :year] %>
+      <%= f.label :gender %><br/>
+      <%= f.collection_radio_buttons :gender, [[:male, 'Male'], [:female, 'Female'], [:not_defined, 'Unknown']], :first, :last %>
       <h2 class="sub-header">Change password</h2>
+
       <p>Leave these fields blank to keep the current password.</p>
       <%= f.input :password, label: 'New password' %>
       <%= f.input :password_confirmation, label: 'Retype the new password' %>
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit %>
+      <%= f.button :submit, "Edit Customer", class: "btn btn-primary" %>
     </div>
 <% end %>
-
-
-<%= link_to 'Show', admin_customer_path(@customer) %> |
-<%= link_to 'Back', admin_customers_path %>

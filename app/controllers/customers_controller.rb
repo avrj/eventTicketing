@@ -11,7 +11,8 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        format.html { redirect_to customer_login_path, notice: 'Customer was successfully created.' }
+        session[:customer_user_id] = @customer.id
+        format.html { redirect_to shopping_cart_path, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else
         format.html { render :new }

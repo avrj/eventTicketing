@@ -3,11 +3,11 @@
 </div>
 <div>
   <h2>Select seats</h2>
-    <%= render 'seats_form' %>
+  <%= render 'seats_form' %>
 </div>
 <div>
   <h2>Select other tickets</h2>
-    <%= render 'other_tickets' %>
+  <%= render 'other_tickets' %>
 </div>
 <div>
   <h2>Fill out contact information</h2>
@@ -20,18 +20,21 @@
 <script type="text/javascript">
     var myApp = angular.module('myApp', []);
 
-    myApp.controller('TestController', ['$scope', function($scope) {
+    myApp.controller('TestController', ['$scope', function ($scope) {
         $scope.seats = [
-            {"table" : "A", "type" : "normal", "seats": [
-                {"id":"1"},{"id":"2"},{"id":"3"}
+            {
+                "table": "A", "type": "normal", "seats": [
+                {"id": "1"}, {"id": "2"}, {"id": "3"}
             ]
             },
-            {"table":"B", "type":"normal","seats": [
-                {"id":"1"},{"id":"2"},{"id":"3"}
+            {
+                "table": "B", "type": "normal", "seats": [
+                {"id": "1"}, {"id": "2"}, {"id": "3"}
             ]
             },
-            {"table":"C", "type":"VIP", "seats": [
-                {"id":"1"},{"id":"2"},{"id":"3"}
+            {
+                "table": "C", "type": "VIP", "seats": [
+                {"id": "1"}, {"id": "2"}, {"id": "3"}
             ]
             }
         ];
@@ -40,11 +43,11 @@
         console.log($scope.seats);
         $scope.choices = [{'id': 'choice1'}];
 
-        $scope.addField = function() {
+        $scope.addField = function () {
             $scope.choices.push({'id': 'choice3'});
         };
 
-        $scope.removeField = function(person) {
+        $scope.removeField = function (person) {
             $scope.choices.splice($scope.choices.indexOf(person), 1);
         };
     }]);

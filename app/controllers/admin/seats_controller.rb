@@ -31,21 +31,18 @@ class Admin::SeatsController < Admin::BaseController
   # POST /seats.json
   def create
     @seat = Seat.new(seat_params)
+    @ticket = Ticket.new(seat: @seat, code: seat_params[:code], given_away: seat_params[:given_away], ticket_type_id: seat_params[:ticket_type])
 
     respond_to do |format|
-      if @seat.save
-        @ticket = Ticket.new(seat: @seat, code: seat_params[:code], given_away: seat_params[:given_away], ticket_type_id: seat_params[:ticket_type])
-        if @ticket.save
-          format.html { redirect_to admin_seat_path(@seat), notice: 'Seat was successfully created.' }
-          format.json { render :show, status: :created, location: @seat }
-        else
-          format.html { render :new }
-          format.json { render json: @seat.errors, status: :unprocessable_entity }
-        end
-      else
-        format.html { render :new }
-        format.json { render json: @seat.errors, status: :unprocessable_entity }
-      end
+        if @seat.valid? && @ticket.valid?
+          @seat.save
+             @ticket.save
+            format.html { redirect_to admin_seat_path(@seat), notice: 'Seat was successfully created.' }
+            format.json { render :show, status: :created, location: @seat }
+          else
+            format.html { render :new }
+            format.json { render json: @seat.errors, status: :unprocessable_entity }
+          end
     end
   end
 

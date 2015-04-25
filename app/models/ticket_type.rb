@@ -2,7 +2,6 @@ class TicketType < ActiveRecord::Base
   has_many :tickets, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true
-  validates :description, presence: true
   validates :price, presence: true
 
   def free

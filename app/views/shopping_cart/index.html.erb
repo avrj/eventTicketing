@@ -33,82 +33,90 @@
       <h1 class="page-header">Shopping Cart</h1>
 
       <% if @tickets or @seats.size > 0 %>
-      <table class="table table-hover">
-        <thead>
-        <tr>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th class="text-center">Price</th>
-          <th class="text-center">Total</th>
-          <th> </th>
-        </tr>
-        </thead>
-        <tbody>
-        <% if @seats.size >0 %>
-        <% @seats.each do |seat| %>
-        <tr>
-          <td class="col-sm-8 col-md-6">
-            <div class="media">
-              <div class="media-body">
-                <h4 class="media-heading"><%= seat.ticket.ticket_type.name %></h4>
-                <span>position at </span><span><strong><%= seat.table %>.<%= seat.seat %></strong></span>
-              </div>
-            </div></td>
-          <td class="col-sm-1 col-md-1" style="text-align: center">1</td>
-          <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
-          <td class="col-sm-1 col-md-1 text-center"><strong><%= number_to_currency(seat.ticket.ticket_type.price) %></strong></td>
-          <td class="col-sm-1 col-md-1">
-            <%= button_to shopping_cart_delete_seat_path(id: seat), :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger' do %>
-              <span class="glyphicon glyphicon-remove"></span> Remove
-            <% end %></td>
-        </tr>
-        <% end %>
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th class="text-center">Price</th>
+              <th class="text-center">Total</th>
+              <th> </th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if @seats.size >0 %>
+                <% @seats.each do |seat| %>
+                    <tr>
+                      <td class="col-sm-8 col-md-6">
+                        <div class="media">
+                          <div class="media-body">
+                            <h4 class="media-heading"><%= seat.ticket.ticket_type.name %></h4>
+                            <span>position at </span><span><strong><%= seat.table %>.<%= seat.seat %></strong></span>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="col-sm-1 col-md-1" style="text-align: center">1</td>
+                      <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
+                      <td class="col-sm-1 col-md-1 text-center">
+                        <strong><%= number_to_currency(seat.ticket.ticket_type.price) %></strong></td>
+                      <td class="col-sm-1 col-md-1">
+                        <%= button_to shopping_cart_delete_seat_path(id: seat), :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger' do %>
+                            <span class="glyphicon glyphicon-remove"></span> Remove
+                        <% end %></td>
+                    </tr>
+                <% end %>
             <% end %>
             <% if @tickets %>
-        <% @ticket_types.each do |ticket_type| %>
-            <tr>
-              <td class="col-sm-8 col-md-6">
-                <div class="media">
-                  <div class="media-body">
-                    <h4 class="media-heading"><%= ticket_type.name %></h4>
-                  </div>
-                </div></td>
-              <td class="col-sm-1 col-md-1" style="text-align: center"><input class="form-control" type="number" name="tickets[<%= ticket_type.id %>]" min="0" max="<%= @tickets[ticket_type.id.to_s].to_i+ticket_type.free.count %>" value="<%= @tickets[ticket_type.id.to_s] %>" /></td>
-              <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(ticket_type.price) %></td>
-              <td class="col-sm-1 col-md-1 text-center"><strong><%= number_to_currency(ticket_type.price * @tickets[ticket_type.id.to_s].to_i) %></strong></td>
-              <td class="col-sm-1 col-md-1">
+                <% @ticket_types.each do |ticket_type| %>
+                    <tr>
+                      <td class="col-sm-8 col-md-6">
+                        <div class="media">
+                          <div class="media-body">
+                            <h4 class="media-heading"><%= ticket_type.name %></h4>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="col-sm-1 col-md-1" style="text-align: center">
+                        <input class="form-control" type="number" name="tickets[<%= ticket_type.id %>]" min="0" max="<%= @tickets[ticket_type.id.to_s].to_i+ticket_type.free.count %>" value="<%= @tickets[ticket_type.id.to_s] %>"/>
+                      </td>
+                      <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(ticket_type.price) %></td>
+                      <td class="col-sm-1 col-md-1 text-center">
+                        <strong><%= number_to_currency(ticket_type.price * @tickets[ticket_type.id.to_s].to_i) %></strong>
+                      </td>
+                      <td class="col-sm-1 col-md-1">
 
-                <%= button_to shopping_cart_update_qty_path(id: ticket_type), :class => "btn btn-primary" do %>
-                  <span class="glyphicon glyphicon-refresh"></span> Update qty
+                        <%= button_to shopping_cart_update_qty_path(id: ticket_type), :class => "btn btn-primary" do %>
+                            <span class="glyphicon glyphicon-refresh"></span> Update qty
+                        <% end %></td>
+                    </tr>
+                <% end %>
+            <% end %>
+            <tr>
+              <td>  </td>
+              <td>  </td>
+              <td>  </td>
+              <td><h3>Total</h3></td>
+              <td class="text-right"><h3><strong><%= number_to_currency(@shopping_cart_total_price) %></strong></h3>
+              </td>
+            </tr>
+            <tr>
+              <td>  </td>
+              <td>  </td>
+              <td>  </td>
+              <td>
+                <%= button_to shopping_cart_path, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger' do %>
+                    <span class="glyphicon glyphicon-remove"></span> Empty Cart
+                <% end %></td>
+              <td>
+                <%= button_to shopping_cart_checkout_path, :method => :post, class: 'btn btn-success' do %>
+                    Checkout <span class="glyphicon glyphicon-play"></span>
                 <% end %></td>
             </tr>
-        <% end %>
-<% end %>
-        <tr>
-          <td>   </td>
-          <td>   </td>
-          <td>   </td>
-          <td><h3>Total</h3></td>
-          <td class="text-right"><h3><strong><%= number_to_currency(@shopping_cart_total_price) %></strong></h3></td>
-        </tr>
-        <tr>
-          <td>   </td>
-          <td>   </td>
-          <td>   </td>
-          <td>
-            <%= button_to shopping_cart_path, :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger' do %>
-              <span class="glyphicon glyphicon-remove"></span> Empty Cart
-            <% end %></td>
-          <td>
-            <%= button_to shopping_cart_checkout_path, :method => :post, class: 'btn btn-success' do %>
-              Checkout <span class="glyphicon glyphicon-play"></span>
-            <% end %></td>
-        </tr>
-        </tbody>
-      </table>
-          <% else %>
-      <p>Looks like the Shopping Cart is empty.</p>
-          <% end %>
+            </tbody>
+          </table>
+      <% else %>
+          <p>Looks like the Shopping Cart is empty.</p>
+      <% end %>
     </div>
   </div>
 </div>

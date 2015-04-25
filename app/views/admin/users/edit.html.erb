@@ -1,6 +1,9 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Admins", admin_users_path %></li>
+  <li><%= link_to "Admin #"+@admin.id.to_s, admin_user_path(@admin) %></li>
+  <li class="active">Edit</li>
+</ol>
+
 <h1 class="page-header">Editing Admin</h1>
 
 <%= render 'edit_form' %>
-
-<%= link_to 'Show', admin_user_path(@admin) %> |
-<%= link_to 'Back', admin_users_path %>

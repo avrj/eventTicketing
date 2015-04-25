@@ -26,7 +26,10 @@ RSpec.describe Admin::SeatsController, type: :controller do
     it "responds successfully with an HTTP 200 status code" do
       admin = FactoryGirl.create(:admin)
       session[:admin_user_id] = admin.id
+      ticket_type = FactoryGirl.create(:ticket_type_seat)
       seat = FactoryGirl.create(:seat)
+      ticket = FactoryGirl.create(:ticket, ticket_type: ticket_type, seat: seat)
+
       get :show, {:id => seat.id}
 
       expect(response).to be_success
@@ -36,7 +39,9 @@ RSpec.describe Admin::SeatsController, type: :controller do
     it "renders the show template" do
       admin = FactoryGirl.create(:admin)
       session[:admin_user_id] = admin.id
+      ticket_type = FactoryGirl.create(:ticket_type_seat)
       seat = FactoryGirl.create(:seat)
+      ticket = FactoryGirl.create(:ticket, ticket_type: ticket_type, seat: seat)
 
       get :show, {:id => seat.id}
 
@@ -69,8 +74,9 @@ RSpec.describe Admin::SeatsController, type: :controller do
     it "responds successfully with an HTTP 200 status code" do
       admin = FactoryGirl.create(:admin)
       session[:admin_user_id] = admin.id
-      ticket_type = FactoryGirl.create(:ticket_type)
-      seat = FactoryGirl.create(:seat, ticket_type: ticket_type, code: "code", given_away: false)
+      ticket_type = FactoryGirl.create(:ticket_type_seat)
+      seat = FactoryGirl.create(:seat)
+      ticket = FactoryGirl.create(:ticket, ticket_type: ticket_type, seat: seat)
       get :edit, {:id => seat.id}
 
       expect(response).to be_success
@@ -80,12 +86,120 @@ RSpec.describe Admin::SeatsController, type: :controller do
     it "renders the edit template" do
       admin = FactoryGirl.create(:admin)
       session[:admin_user_id] = admin.id
-      ticket_type = FactoryGirl.create(:ticket_type)
-      seat = FactoryGirl.create(:seat, ticket_type: ticket_type, code: "code", given_away: false)
+      ticket_type = FactoryGirl.create(:ticket_type_seat)
+      seat = FactoryGirl.create(:seat)
+      ticket = FactoryGirl.create(:ticket, ticket_type: ticket_type, seat: seat)
 
       get :edit, {:id => seat.id}
 
       expect(response).to render_template("edit")
+    end
+  end
+
+
+  describe 'POST create' do
+    context 'with valid attributes' do
+      it 'creates the seat' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        ticket_type = FactoryGirl.create(:ticket_type_seat)
+        post :create, seat: FactoryGirl.attributes_for(:seat, ticket_type: ticket_type)
+        expect(Seat.count).to eq(1)
+      end
+
+      it 'redirects to the "show" action for the new seat' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        ticket_type = FactoryGirl.create(:ticket_type_seat)
+        post :create, seat: FactoryGirl.attributes_for(:seat, ticket_type: ticket_type)
+        expect(response).to redirect_to admin_seat_path(Seat.last)
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 'does not create the seat' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        post :create, seat: FactoryGirl.attributes_for(:seat)
+        expect(Seat.count).to eq(0)
+      end
+
+      it 're-renders the "new" view' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        post :create, seat: FactoryGirl.attributes_for(:seat, name: nil)
+        expect(response).to render_template :new
+      end
+    end
+  end
+
+  describe 'POST update' do
+    context 'with valid attributes' do
+      it 'updates the seat' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        ticket_type = FactoryGirl.create(:ticket_type_seat)
+        seat = FactoryGirl.create(:seat)
+        ticket = FactoryGirl.create(:ticket, ticket_type: ticket_type, seat: seat)
+
+        put :update, {:id => seat.id, :seat => FactoryGirl.attributes_for(:seat)}
+        expect(TicketType.count).to eq(1)
+      end
+
+      it 'redirects to the "show" action for the updated seat' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        ticket_type = FactoryGirl.create(:ticket_type_seat)
+        seat = FactoryGirl.create(:seat)
+        ticket = FactoryGirl.create(:ticket, ticket_type: ticket_type, seat: seat)
+
+        put :update, {:id => seat.id, :seat => FactoryGirl.attributes_for(:seat, ticket_type: ticket_type)}
+        expect(response).to redirect_to admin_seat_path(Seat.last)
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 're-renders the "edit" view' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        ticket_type = FactoryGirl.create(:ticket_type_seat)
+        seat = FactoryGirl.create(:seat)
+        ticket = FactoryGirl.create(:ticket, ticket_type: ticket_type, seat: seat)
+
+        put :update, {:id => seat.id, :seat => FactoryGirl.attributes_for(:seat, ticket_type: nil) }
+        expect(response).to render_template :edit
+      end
+    end
+  end
+
+  describe 'DELETE destroy' do
+    context 'with valid attributes' do
+      it 'destroys the seat' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        seat = FactoryGirl.create(:seat)
+
+        delete :destroy, {:id => seat.id, :seat => FactoryGirl.attributes_for(:seat) }
+        expect(Seat.count).to eq(0)
+      end
+
+      it 'redirects to the "index" action' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        seat = FactoryGirl.create(:seat)
+
+        delete :destroy, {:id => seat.id, :seat => FactoryGirl.attributes_for(:seat) }
+        expect(response).to redirect_to admin_seats_path
+      end
     end
   end
 end

@@ -2,18 +2,18 @@
 
 <table class="table">
   <thead>
-    <tr>
-      <th>Table</th>
-      <th>Seat</th>
-      <th>X</th>
-      <th>Y</th>
-      <th>Angle</th>
-      <th colspan="3"></th>
-    </tr>
+  <tr>
+    <th>Table</th>
+    <th>Seat</th>
+    <th>X</th>
+    <th>Y</th>
+    <th>Angle</th>
+    <th colspan="3"></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @seats.each do |seat| %>
+  <% @seats.each do |seat| %>
       <tr>
         <td><%= seat.table %></td>
         <td><%= seat.seat %></td>
@@ -21,10 +21,10 @@
         <td><%= seat.y %></td>
         <td><%= seat.angle %></td>
         <td><%= link_to 'Show', customer_seat_path(seat) %></td>
-        <td><%= link_to 'Edit',  edit_customer_seat_path(seat) %></td>
-        <td><%= link_to 'Destroy', customer_seat_path(seat), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_customer_seat_path(seat) %></td>
+        <td><%= link_to 'Destroy', customer_seat_path(seat), method: :delete, data: {confirm: 'Are you sure?'} %></td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 

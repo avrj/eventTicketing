@@ -1,34 +1,42 @@
 <h1 class="page-header">Orders</h1>
 
 <% if !@orders.any? %>
-    <p>Looks like there are no seats yet.</p>
+    <p>Looks like there are no orders yet.</p>
 <% else %>
+    <p>Total of <%= pluralize(@orders.count, "order") %>.</p>
     <table class="table table-striped">
       <thead>
-        <tr>
-          <th>Created at</th>
-          <th>Customer</th>
-          <th>Status</th>
-          <th>Tickets</th>
-          <th>Total price</th>
-          <th colspan="3"></th>
-        </tr>
+      <tr>
+        <th>Created at</th>
+        <th>Customer</th>
+        <th>Status</th>
+        <th>Tickets</th>
+        <th>Total price</th>
+        <th></th>
+      </tr>
       </thead>
 
       <tbody>
-        <% @orders.each do |order| %>
+      <% @orders.each do |order| %>
           <tr>
             <td><%= order.created_at %></td>
-            <th><%= link_to order.customer.firstname, admin_customer_path(order.customer) %></th>
-            <td><% if order.paid %><span class="label label-success">paid</span><% else %><span class="label label-danger">unpaid</span><% end %></td>
+            <td><%= link_to order.customer.firstname + " " + order.customer.lastname, admin_customer_path(order.customer) %></td>
+            <td>
+              <% if order.paid %><span class="label label-success">paid</span>
+              <% else %><span class="label label-danger">unpaid</span>
+              <% end %></td>
 
             <td><%= order.tickets.count %></td>
             <td><%= number_to_currency(order.total) %></td>
-            <td><%= link_to 'Show', admin_order_path(order) %></td>
-            <td><%= link_to 'Edit', edit_admin_order_path(order) %></td>
-            <td><%= link_to 'Destroy', admin_order_path(order), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td>
+              <div class="btn-group pull-right" role="group" aria-label="...">
+                <%= link_to 'Show', admin_order_path(order), class: "btn btn-success" %>
+                <%= link_to 'Edit', edit_admin_order_path(order), class: "btn btn-primary" %>
+                <%= link_to 'Destroy', admin_order_path(order), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+              </div>
+            </td>
           </tr>
-        <% end %>
+      <% end %>
       </tbody>
     </table>
 <% end %>

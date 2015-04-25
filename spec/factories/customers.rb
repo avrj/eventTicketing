@@ -7,7 +7,7 @@ FactoryGirl.define do
     postcode "01000"
     city "Helsinki"
     phone "+358401231234"
-    age "25"
+    date_of_birth "1989-07-10"
     gender 0
     password "Foobar12"
     password_confirmation "Foobar12"
@@ -21,7 +21,7 @@ FactoryGirl.define do
     postcode "01000"
     city "Helsinki"
     phone "+358401231234"
-    age "25"
+    date_of_birth "1989-07-10"
     gender 0
     password "abc"
     password_confirmation "abc"

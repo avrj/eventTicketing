@@ -2,18 +2,18 @@
 
 <table class="table">
   <thead>
-    <tr>
-      <th>Code</th>
-      <th>Given away</th>
-    </tr>
+  <tr>
+    <th>Code</th>
+    <th>Given away</th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @tickets.each do |ticket| %>
+  <% @tickets.each do |ticket| %>
       <tr>
         <td><%= ticket.code %></td>
         <td><%= ticket.given_away %></td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>

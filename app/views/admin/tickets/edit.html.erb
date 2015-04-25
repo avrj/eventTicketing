@@ -1,6 +1,9 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Tickets", admin_tickets_path %></li>
+  <li><%= link_to "Ticket #"+@ticket.id.to_s, admin_ticket_path(@ticket) %></li>
+  <li class="active">Edit</li>
+</ol>
+
 <h1 class="page-header">Editing Ticket</h1>
 
 <%= render 'edit_form' %>
-
-<%= link_to 'Show', admin_ticket_path(@ticket) %> |
-<%= link_to 'Back', admin_tickets_path %>

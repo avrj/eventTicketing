@@ -31,6 +31,7 @@
   <div class="row">
     <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
       <h1 class="page-header">Checkout</h1>
+
       <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6">
           <address>
@@ -50,54 +51,56 @@
         </div>
         </span>
         <%= form_tag orders_path do %>
-        <table class="table table-hover">
-          <thead>
-          <tr>
-            <th>Product</th>
-            <th>#</th>
-            <th class="text-center">Price</th>
-            <th class="text-center">Total</th>
-          </tr>
-          </thead>
-          <tbody>
-          <% if @seats %>
-                <% @seats.each do |seat| %>
-                    <tr>
-                      <td class="col-md-9"><%= seat.ticket.ticket_type.name %>, <%= seat.table %>.<%= seat.seat %></td>
-                      <td class="col-md-1">1</td>
-                      <td class="col-md-1 text-center"><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
-                      <td class="col-md-1 text-center"><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
-                    </tr>
-                <% end %>
-          <% end %>
-          <% if @tickets %>
-                <% @ticket_types.each do |ticket_type| %>
-                    <% if @tickets[ticket_type.id.to_s].to_i > 0 %>
-                        <tr>
-                          <td class="col-md-9"><%= ticket_type.name %></td>
-                          <td class="col-md-1"><%= @tickets[ticket_type.id.to_s] %></td>
-                          <td class="col-md-1 text-center"><%= number_to_currency(ticket_type.price) %></td>
-                          <td class="col-md-1 text-center"><%= number_to_currency(ticket_type.price * @tickets[ticket_type.id.to_s].to_i) %></td>
-                        </tr>
-                    <% end %>
-                <% end %>
-          <% end %>
-          <tr>
-            <td>   </td>
-            <td>   </td>
-            <td class="text-center" colspan="2"><%= check_box_tag 'is_paid' %> <%= label_tag 'paid', 'Mark as paid?' %></td>
-          </tr>
-          <tr>
-            <td>   </td>
-            <td>   </td>
-            <td class="text-right"><h4><strong>Total: </strong></h4></td>
-            <td class="text-center text-danger"><h4><strong><%= number_to_currency(@shopping_cart_total_price) %></strong></h4></td>
-          </tr>
-          </tbody>
-        </table>
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th>Product</th>
+                <th>#</th>
+                <th class="text-center">Price</th>
+                <th class="text-center">Total</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% if @seats %>
+                  <% @seats.each do |seat| %>
+                      <tr>
+                        <td class="col-md-9"><%= seat.ticket.ticket_type.name %>, <%= seat.table %>
+                          .<%= seat.seat %></td>
+                        <td class="col-md-1">1</td>
+                        <td class="col-md-1 text-center"><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
+                        <td class="col-md-1 text-center"><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
+                      </tr>
+                  <% end %>
+              <% end %>
+              <% if @tickets %>
+                  <% @ticket_types.each do |ticket_type| %>
+                      <% if @tickets[ticket_type.id.to_s].to_i > 0 %>
+                          <tr>
+                            <td class="col-md-9"><%= ticket_type.name %></td>
+                            <td class="col-md-1"><%= @tickets[ticket_type.id.to_s] %></td>
+                            <td class="col-md-1 text-center"><%= number_to_currency(ticket_type.price) %></td>
+                            <td class="col-md-1 text-center"><%= number_to_currency(ticket_type.price * @tickets[ticket_type.id.to_s].to_i) %></td>
+                          </tr>
+                      <% end %>
+                  <% end %>
+              <% end %>
+              <tr>
+                <td>  </td>
+                <td>  </td>
+                <td class="text-center" colspan="2"><%= check_box_tag 'is_paid' %> <%= label_tag 'paid', 'Mark as paid?' %></td>
+              </tr>
+              <tr>
+                <td>  </td>
+                <td>  </td>
+                <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                <td class="text-center text-danger">
+                  <h4><strong><%= number_to_currency(@shopping_cart_total_price) %></strong></h4></td>
+              </tr>
+              </tbody>
+            </table>
             <%= submit_tag 'Confirm Order', class: 'btn btn-success btn-lg btn-block' %>
         <% end %>
-<br />
+        <br/>
         <%= link_to 'Back to shopping cart', shopping_cart_path %>
       </div>
     </div>

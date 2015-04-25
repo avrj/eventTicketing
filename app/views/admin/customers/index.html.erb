@@ -1,44 +1,53 @@
-<h1 class="page-header">Customers</h1>
+<h1 class="page-header">
+  <span>Customers</span>
+    <%= link_to 'New Customer', new_admin_customer_path, class: "btn btn-primary pull-right" %>
+</h1>
 
 <% if !@customers.any? %>
     <p>Looks like there are no customers yet.</p>
 <% else %>
+    <p>Total of <%= pluralize(@customers.count, "customer") %>.</p>
     <table class="table table-striped">
       <thead>
-        <tr>
-          <th>Email</th>
-          <th>Firstname</th>
-          <th>Lastname</th>
-          <th>Address</th>
-          <th>Postcode</th>
-          <th>City</th>
-          <th>Phone</th>
-          <th>Age</th>
-          <th>Gender</th>
-          <th colspan="3"></th>
-        </tr>
+      <tr>
+        <th>Email</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Postcode</th>
+        <th>City</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Orders</th>
+        <th></th>
+      </tr>
       </thead>
 
       <tbody>
-        <% @customers.each do |customer| %>
+      <% @customers.each do |customer| %>
           <tr>
             <td><%= customer.email %></td>
             <td><%= customer.firstname %></td>
             <td><%= customer.lastname %></td>
-            <td><%= customer.address %></td>
             <td><%= customer.postcode %></td>
             <td><%= customer.city %></td>
-            <td><%= customer.phone %></td>
-            <td><%= customer.age %></td>
-            <td><%= customer.gender %></td>
-            <td><%= link_to 'Show', admin_customer_path(customer) %></td>
-            <td><%= link_to 'Edit', edit_admin_customer_path(customer) %></td>
-            <td><%= link_to 'Destroy', admin_customer_path(customer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= customer.date_of_birth %></td>
+            <% if customer.gender == "male" %>
+                <td>Male</td>
+            <% elsif customer.gender == "female" %>
+                <td>Female</td>
+            <% else %>
+                <td>Not Defined</td>
+            <% end %>
+            <td><%= customer.reservations.count %></td>
+            <td>
+              <div class="btn-group pull-right" role="group" aria-label="...">
+                <%= link_to 'Show', admin_customer_path(customer), class: "btn btn-success" %>
+                <%= link_to 'Edit', edit_admin_customer_path(customer), class: "btn btn-primary" %>
+                <%= link_to 'Destroy', admin_customer_path(customer), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+              </div>
+            </td>
           </tr>
-        <% end %>
+      <% end %>
       </tbody>
     </table>
 <% end %>
-<br>
-
-<%= link_to 'New Customer', new_admin_customer_path, class: "btn btn-primary" %>

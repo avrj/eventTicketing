@@ -1,41 +1,143 @@
-<h1 class="page-header"><%= @customer.firstname %> <%= @customer.lastname %></h1>
+<ol class="breadcrumb">
+  <li><%= link_to "Customers", admin_customers_path %></li>
+  <li class="active">Customer #<%= @customer.id %></li>
+</ol>
+
+<h1 class="page-header">
+  <span><%= @customer.firstname %> <%= @customer.lastname %></span>
+  <div class="btn-group pull-right" role="group" aria-label="...">
+    <%= link_to 'Edit', edit_admin_customer_path(@customer), class: "btn btn-primary" %>
+    <%= link_to 'Destroy', admin_customer_path(@customer), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+      </div>
+</h1>
 
 <table class="table">
   <tbody>
-      <tr>
-          <th>Email</th>
-          <td><%= @customer.email %></td>
-      </tr>
-      <tr>
-        <th>Address</th>
-        <td><%= @customer.address %></td>
-      </tr>
-      <tr>
-        <th>Postcode</th>
-        <td><%= @customer.postcode %></td>
-      </tr>
-      <tr>
-        <th>City</th>
-        <td><%= @customer.city %></td>
-      </tr>
-      <tr>
-        <th>Phone</th>
-        <td><%= @customer.phone %></td>
-      </tr>
-      <tr>
-        <th>Age</th>
-        <td><%= @customer.age %></td>
-      </tr>
-      <tr>
-        <th>Gender</th>
-        <td><%= @customer.gender %></td>
-      </tr>
-      <tr>
-        <th>Registered at</th>
-        <td><%= @customer.created_at %></td>
-      </tr>
+  <tr>
+    <th>Email</th>
+    <td><%= @customer.email %></td>
+  </tr>
+  <tr>
+    <th>Address</th>
+    <td><%= @customer.address %></td>
+  </tr>
+  <tr>
+    <th>Postcode</th>
+    <td><%= @customer.postcode %></td>
+  </tr>
+  <tr>
+    <th>City</th>
+    <td><%= @customer.city %></td>
+  </tr>
+  <tr>
+    <th>Phone</th>
+    <td><%= @customer.phone %></td>
+  </tr>
+  <tr>
+    <th>Date of Birth</th>
+    <td><%= @customer.date_of_birth %></td>
+  </tr>
+  <tr>
+    <th>Gender</th>
+    <% if @customer.gender == "male" %>
+        <td>Male</td>
+    <% elsif @customer.gender == "female" %>
+        <td>Female</td>
+    <% else %>
+        <td>Not Defined</td>
+    <% end %>
+  </tr>
+  <tr>
+    <th>Registered at</th>
+    <td><%= @customer.created_at %></td>
+  </tr>
   </tbody>
 </table>
 
-<%= link_to 'Edit', edit_admin_customer_path(@customer) %> |
-<%= link_to 'Back', admin_customers_path %>
+<% if @orders.count > 0 %>
+    <div>
+      <h2>Orders</h2>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Created at</th>
+        <th>Status</th>
+        <th>Tickets</th>
+        <th>Total price</th>
+        <th colspan="3"></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @orders.each do |order| %>
+          <tr>
+            <td><%= order.created_at %></td>s
+            <td>
+              <% if order.paid %><span class="label label-success">paid</span>
+              <% else %><span class="label label-danger">unpaid</span>
+              <% end %></td>
+
+            <td><%= order.tickets.count %></td>
+            <td><%= number_to_currency(order.total) %></td>
+            <td><%= link_to 'Show', admin_order_path(order) %></td>
+            <td><%= link_to 'Edit', edit_admin_order_path(order) %></td>
+            <td><%= link_to 'Destroy', admin_order_path(order), method: :delete, data: {confirm: 'Are you sure?'} %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+        </div>
+    <% end %>
+<% if @tickets.count > 0 %>
+    <div>
+      <h2>Tickets</h2>
+
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Type</th>
+          <th>Price</th>
+          <th>Reservation code</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @tickets.each do |ticket| %>
+            <tr>
+              <td><%= ticket.ticket_type.name %></td>
+              <td><%= number_to_currency(ticket.ticket_type.price) %></td>
+                  <td><%= ticket.code %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+<% end %>
+<% if @seats.count > 0 %>
+    <div>
+      <h2>Seats</h2>
+
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Table</th>
+          <th>Seat</th>
+          <th>Type</th>
+          <th>Price</th>
+          <th>Reservation code</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @seats.each do |seat| %>
+            <tr>
+              <td><%= seat.ticket.ticket_type.name %></td>
+              <td><%= seat.table %></td>
+              <td><%= seat.seat %></td>
+              <td><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
+                  <td><%= seat.ticket.code %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+<% end %>

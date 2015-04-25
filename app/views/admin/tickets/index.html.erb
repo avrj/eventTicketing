@@ -1,43 +1,48 @@
-<h1 class="page-header">Tickets</h1>
-
+<h1 class="page-header">
+  <span>Tickets</span>
+  <%= link_to 'New Ticket', new_admin_ticket_path, class: "btn btn-primary pull-right" %>
+</h1>
 <% if !@tickets.any? %>
     <p>Looks like there are no tickets yet.</p>
 <% else %>
+    <p>Total of <%= pluralize(@tickets.count, "ticket") %>.</p>
     <table class="table table-striped">
       <thead>
-        <tr>
-          <th>Type</th>
-          <th>Code</th>
-          <th>Status</th>
-          <th>Given away</th>
-          <th colspan="3"></th>
-        </tr>
+      <tr>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Given away</th>
+        <th>Code</th>
+        <th></th>
+      </tr>
       </thead>
 
       <tbody>
-        <% @tickets.each do |ticket| %>
+      <% @tickets.each do |ticket| %>
           <tr>
             <td><%= link_to ticket.ticket_type.name, admin_ticket_type_path(ticket.ticket_type) %></td>
-            <td><%= ticket.code %></td>
             <% if ticket.reservation.nil? %>
-            <td><span class="label label-success">Free</span></td>
-                <% else %>
-                <td>Reserved to <%= link_to ticket.reservation.customer.firstname, admin_customer_path(ticket.reservation.customer) %> as <%= link_to 'Order', admin_order_path(ticket.reservation) %></td>
-                <% end %>
-            <% if ticket.given_away %>
-                <td>Given away</td>
-                <% else %>
-                <td>Not</td>
+                <td><span class="label label-success">Free</span></td>
+            <% else %>
+                <td>Reserved
+                  to <%= link_to ticket.reservation.customer.firstname + " "+ ticket.reservation.customer.lastname, admin_customer_path(ticket.reservation.customer) %>
+                  as <%= link_to "Order #" + ticket.reservation.id.to_s, admin_order_path(ticket.reservation) %></td>
             <% end %>
-            <td><%= link_to 'Show', admin_ticket_path(ticket) %></td>
-            <td><%= link_to 'Edit', edit_admin_ticket_path(ticket) %></td>
-            <td><%= link_to 'Destroy', admin_ticket_path(ticket), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if ticket.given_away %>
+                <td>Yes</td>
+            <% else %>
+                <td>No</td>
+            <% end %>
+            <td><%= ticket.code %></td>
+            <td>
+              <div class="btn-group pull-right" role="group" aria-label="...">
+                <%= link_to 'Show', admin_ticket_path(ticket), class: "btn btn-success" %>
+                <%= link_to 'Edit', edit_admin_ticket_path(ticket), class: "btn btn-primary" %>
+                <%= link_to 'Destroy', admin_ticket_path(ticket), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+              </div>
+            </td>
           </tr>
-        <% end %>
+      <% end %>
       </tbody>
     </table>
 <% end %>
-
-<br>
-
-<%= link_to 'New Ticket', new_admin_ticket_path, class: "btn btn-primary" %>

@@ -1,4 +1,15 @@
-<h1 class="page-header">Seat</h1>
+<ol class="breadcrumb">
+  <li><%= link_to "Seats", admin_seats_path %></li>
+  <li class="active">Seat #<%= @seat.id%></li>
+</ol>
+
+<h1 class="page-header">
+  <span>Seat</span>
+  <div class="btn-group pull-right" role="group" aria-label="...">
+    <%= link_to 'Edit', edit_admin_seat_path(@seat), class: "btn btn-primary" %>
+    <%= link_to 'Destroy', admin_seat_path(@seat), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+  </div>
+</h1>
 
 <table class="table">
   <tbody>
@@ -22,7 +33,22 @@
     <th>Angle</th>
     <td><%= @seat.angle %></td>
   </tr>
+  <tr>
+    <th>Status</th>
+    <% if @seat.ticket.reservation.nil? %>
+    <td>Free</td>
+        <% else %>
+    <td>Reserved to <%= link_to @seat.ticket.reservation.customer.firstname + " " + @seat.ticket.reservation.customer.firstname, admin_customer_path(@seat.ticket.reservation.customer) %>
+        as <%= link_to "Order #" + @seat.ticket.reservation.id.to_s, admin_order_path(@seat.ticket.reservation) %></td>
+    <% end %>
+  </tr>
+  <tr>
+    <th>Given Away</th>
+    <td><%= @seat.ticket.given_away %></td>
+  </tr>
+  <tr>
+    <th>Code</th>
+    <td><%= @seat.ticket.code %></td>
+  </tr>
   </tbody>
 </table>
-<%= link_to 'Edit', edit_admin_seat_path(@seat) %> |
-<%= link_to 'Back', admin_seats_path %>

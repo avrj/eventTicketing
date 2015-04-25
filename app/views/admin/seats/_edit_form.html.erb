@@ -1,19 +1,19 @@
 <%= simple_form_for(@seat, url: admin_seat_path) do |f| %>
-  <%= f.error_notification %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :ticket_type, collection: @ticket_types %>
-    <%= f.input :code %>
-    <%= f.input :given_away, as: :boolean, checked_value: true, unchecked_value: false %>
+    <div class="form-inputs">
+      <%= f.input :ticket_type, collection: @ticket_types %>
+      <%= f.input :code %>
+      <%= f.input :given_away, as: :boolean, checked_value: true, unchecked_value: false %>
 
-    <%= f.input :table %>
-    <%= f.input :seat %>
-    <%= f.input :x %>
-    <%= f.input :y %>
-    <%= f.input :angle %>
-  </div>
+      <%= f.input :table %>
+      <%= f.input :seat %>
+      <%= f.input :x %>
+      <%= f.input :y %>
+      <%= f.input :angle %>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+    <div class="form-actions">
+      <%= f.button :submit, "Edit Seat", class: "btn btn-primary" %>
+    </div>
 <% end %>

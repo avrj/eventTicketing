@@ -1,26 +1,30 @@
 <div class="container">
   <h1 class="sub-header">Available seats</h1>
+
   <div class="row">
     <% @seats.each do |seat| %>
-    <div class="col-sm-3 col-md-3">
-      <div class="well">
-        <h2 class="text-muted"><%= seat.name %></h2>
-        <p><%= seat.description %></p>
-        <hr>
-        <h3><%= number_to_currency(seat.price) %></h3>
-        <hr>
-        <p>14 / 120 free</p>
-      </div>
-    </div>
-        <% end %>
+        <div class="col-sm-3 col-md-3">
+          <div class="well">
+            <h2 class="text-muted"><%= seat.name %></h2>
+
+            <p><%= seat.description %></p>
+            <hr>
+            <h3><%= number_to_currency(seat.price) %></h3>
+            <hr>
+            <p>14 / 120 free</p>
+          </div>
+        </div>
+    <% end %>
   </div>
 
   <h1 class="sub-header">Available tickets</h1>
+
   <div class="row">
     <% @tickets.each do |ticket| %>
         <div class="col-sm-3 col-md-3">
           <div class="well">
             <h2 class="text-muted"><%= ticket.name %></h2>
+
             <p><%= ticket.description %></p>
             <hr>
             <h3><%= number_to_currency(ticket.price) %></h3>

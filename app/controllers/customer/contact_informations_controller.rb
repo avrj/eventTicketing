@@ -36,15 +36,15 @@ class Customer::ContactInformationsController < Customer::BaseController
   end
 
   def customer_params_without_new_password
-    params.require(:customer).permit(:email, :firstname, :lastname, :address, :postcode, :city, :phone, :age, :gender)
+    params.require(:customer).permit(:email, :firstname, :lastname, :address, :postcode, :city, :phone, :date_of_birth, :gender)
   end
 
   def customer_params_with_new_password
-    params.require(:customer).permit(:email, :password, :password_confirmation, :firstname, :lastname, :address, :postcode, :city, :phone, :age, :gender)
+    params.require(:customer).permit(:email, :password, :password_confirmation, :firstname, :lastname, :address, :postcode, :city, :phone, :date_of_birth, :gender)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def customer_params
-    params.require(:customer).permit(:email, :password, :password_confirmation, :current_password, :firstname, :lastname, :address, :postcode, :city, :phone, :age, :gender)
+    params.require(:customer).permit(:email, :password, :password_confirmation, :current_password, :firstname, :lastname, :address, :postcode, :city, :phone, :date_of_birth, :gender)
   end
 end

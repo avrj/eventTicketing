@@ -1,37 +1,43 @@
-<h1 class="page-header">Ticket</h1>
-<p>
-  <strong>Type:</strong>
-  <%= link_to @ticket.ticket_type.name, admin_ticket_type_path(@ticket.ticket_type) %>
-  <button class="btn btn-primary">Change type</button>
-</p>
-<p>
-  <strong>Status:</strong>
-  <% if @ticket.reservation.nil? %>
-    <span class="label label-success">Free</span>
-      <button class="btn btn-primary">Add to Order</button>
-<% else %>
-    Reserved to <%= link_to @ticket.reservation.customer.firstname, admin_customer_path(@ticket.reservation.customer) %> as <%= link_to 'Order', admin_order_path(@ticket.reservation) %>
-      <button class="btn btn-danger">Release</button> or <button class="btn btn-danger">Change customer</button>
-  <% end %>
-</p>
-<p>
-  <strong>Code:</strong>
-  <%= @ticket.code %>
-  <button class="btn btn-danger">Generate new code</button>
-</p>
+<ol class="breadcrumb">
+  <li><%= link_to "Tickets", admin_tickets_path %></li>
+  <li class="active">Ticket #<%= @ticket.id.to_s %></li>
+</ol>
 
-<p>
-  <strong>Given away:</strong>
-  <% if @ticket.given_away %>
-      Yes
-      <button class="btn btn-danger">Mark as not given away</button>
+<h1 class="page-header">
+  <span>Ticket</span>
+  <div class="btn-group pull-right" role="group" aria-label="...">
+    <%= link_to 'Edit', edit_admin_ticket_path(@ticket), class: "btn btn-primary" %>
+    <%= link_to 'Destroy', admin_ticket_path(@ticket), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+  </div>
+</h1>
+
+<table class="table">
+  <tbody>
+  <tr>
+    <th>Type</th>
+    <td><%= link_to @ticket.ticket_type.name, admin_ticket_type_path(@ticket.ticket_type) %></td>
+  </tr>
+  <tr>
+    <th>Status</th>
+    <td>  <% if @ticket.reservation.nil? %>
+          <span class="label label-success">Free</span>
       <% else %>
-      No
-      <button class="btn btn-danger">Mark as given away</button>
-      <% end %>
-</p>
-
-<button class="btn btn-danger">Destroy</button>
-
-<%= link_to 'Edit', edit_admin_ticket_path(@ticket) %> |
-<%= link_to 'Back', admin_tickets_path %>
+          Reserved
+          to <%= link_to @ticket.reservation.customer.firstname, admin_customer_path(@ticket.reservation.customer) %>
+          as <%= link_to 'Order', admin_order_path(@ticket.reservation) %>
+      <% end %></td>
+  </tr>
+  <tr>
+    <th>Code</th>
+    <td><%= @ticket.code %></td>
+  </tr>
+  <tr>
+    <th>Given Away</th>
+    <td><% if @ticket.given_away %>
+          Yes
+      <% else %>
+          No
+      <% end %></td>
+  </tr>
+</tbody>
+    </table>

@@ -1,35 +1,41 @@
 <%= form_tag shopping_cart_add_tickets_path do %>
     <div class="form-inputs">
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Quantity</th>
-    <th>Free / Total</th>
-    <th>Price</th>
-  </tr>
-  </thead>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Quantity</th>
+          <th>Free / Total</th>
+          <th>Price</th>
+        </tr>
+        </thead>
 
-  <tbody>
-  <% @ticket_types.each do |ticket_type| %>
-    <% if ticket_type.tickets.count > 0 %>
-      <tr>
-        <td><%= ticket_type.name %></td>
-        <% if ticket_type.free.count > 0 %>
-        <td><input type="number" name="tickets[<%= ticket_type.id %>]" min="0" max="<%= ticket_type.free.count %>" value="0" class="form-control" /></td>
-        <% else %>
-        <td>-</td>
+        <tbody>
+        <% @ticket_types.each do |ticket_type| %>
+            <% if ticket_type.tickets.count > 0 %>
+                <tr>
+                  <td><%= ticket_type.name %></td>
+                  <% if ticket_type.free.count > 0 %>
+                      <td>
+                        <% if session[:tickets] %>
+                        <input type="number" name="tickets[<%= ticket_type.id %>]" min="0" max="<%= ticket_type.free.count %>" value="<%= session[:tickets][ticket_type.id.to_s] %>" class="form-control"/>
+                      <% else %>
+                            <input type="number" name="tickets[<%= ticket_type.id %>]" min="0" max="<%= ticket_type.free.count %>" value="0" class="form-control"/>
+                        <% end %>
+                    </td>
+                  <% else %>
+                      <td>-</td>
+                  <% end %>
+                  <td><%= ticket_type.free.count %> / <%= ticket_type.tickets.count %></td>
+                  <td><%= number_to_currency(ticket_type.price) %></td>
+                </tr>
             <% end %>
-            <td><%= ticket_type.free.count %> / <%= ticket_type.tickets.count %></td>
-        <td><%= number_to_currency(ticket_type.price) %></td>
-      </tr>
-    <% end %>
-  <% end %>
-  </tbody>
-</table>
+        <% end %>
+        </tbody>
+      </table>
     </div>
 
     <div class="form-actions">
-      <%= submit_tag("Add to cart", :class=>"btn btn-primary") %>
+      <%= submit_tag("Add to cart", :class => "btn btn-primary") %>
     </div>
 <% end %>

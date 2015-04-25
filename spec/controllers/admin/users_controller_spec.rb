@@ -84,4 +84,94 @@ RSpec.describe Admin::UsersController, type: :controller do
       expect(response).to render_template("edit")
     end
   end
+
+  # TODO: allowed only for admin level 1
+
+  describe 'POST create' do
+    context 'with valid attributes' do
+      it 'creates the admin' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        post :create, admin: FactoryGirl.attributes_for(:admin, username: "eri")
+        expect(Admin.count).to eq(2)
+      end
+
+      it 'redirects to the "show" action for the new admin' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        post :create, admin: FactoryGirl.attributes_for(:admin, username: "eri")
+        expect(response).to redirect_to admin_user_path(Admin.last)
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 'does not create the admin' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        post :create, admin: FactoryGirl.attributes_for(:admin, username: nil)
+        expect(Admin.count).to eq(1)
+      end
+
+      it 're-renders the "new" view' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        post :create, admin: FactoryGirl.attributes_for(:admin, username: nil)
+        expect(response).to render_template :new
+      end
+    end
+  end
+
+  describe 'POST update' do
+    context 'with valid attributes' do
+      it 'updates the admin' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        put :update, {:id => admin.id, :admin => FactoryGirl.attributes_for(:admin)}
+        expect(Admin.count).to eq(1)
+      end
+
+      it 'redirects to the "show" action for the updated admin' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        put :update, {:id => admin.id, :admin => FactoryGirl.attributes_for(:admin)}
+        expect(response).to redirect_to admin_user_path(Admin.last)
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 're-renders the "edit" view' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        put :update, {:id => admin.id, :admin => FactoryGirl.attributes_for(:admin, username: nil) }
+        expect(response).to render_template :edit
+      end
+    end
+  end
+
+  describe 'DELETE destroy' do
+    context 'with valid attributes' do
+      it 'destroys the admin' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        delete :destroy, {:id => admin.id, :admin => FactoryGirl.attributes_for(:admin) }
+        expect(Admin.count).to eq(0)
+      end
+
+      it 'redirects to the "index" action' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        delete :destroy, {:id => admin.id, :admin => FactoryGirl.attributes_for(:admin) }
+        expect(response).to redirect_to admin_users_path
+      end
+    end
+  end
 end
