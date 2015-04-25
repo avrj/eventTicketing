@@ -5,7 +5,7 @@ class Admin::TicketsController < Admin::BaseController
   # GET /tickets
   # GET /tickets.json
   def index
-    @tickets = Ticket.where(:ticket_type => TicketType.where(:is_seat => nil))
+    @tickets = Ticket.where(:ticket_type => TicketType.where(:is_seat => false))
   end
 
   # GET /tickets/1
@@ -16,12 +16,12 @@ class Admin::TicketsController < Admin::BaseController
   # GET /tickets/new
   def new
     @ticket = Ticket.new
-    @ticket_types = TicketType.where(:is_seat => nil)
+    @ticket_types = TicketType.where(:is_seat => false)
   end
 
   # GET /tickets/1/edit
   def edit
-    @ticket_types = TicketType.where(:is_seat => nil)
+    @ticket_types = TicketType.where(:is_seat => false)
   end
 
   # POST /tickets

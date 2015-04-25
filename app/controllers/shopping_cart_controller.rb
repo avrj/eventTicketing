@@ -11,7 +11,7 @@ class ShoppingCartController < ApplicationController
 
     @tickets.each { |ticket_type_id, quantity| @shopping_cart_total_price += TicketType.find(ticket_type_id).price.to_i * quantity.to_i } unless @tickets.nil?
 
-    @ticket_types = TicketType.where(:id => @tickets.keys, :is_seat => nil) unless @tickets.nil?
+    @ticket_types = TicketType.where(:id => @tickets.keys, :is_seat => false) unless @tickets.nil?
   end
 
   def add_tickets
