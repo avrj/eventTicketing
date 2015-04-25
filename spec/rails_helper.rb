@@ -2,7 +2,7 @@ require 'simplecov'
 SimpleCov.start('rails')
 require 'capybara/rspec'
 require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.Start
+CodeClimate::TestReporter.start
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 require 'spec_helper'
