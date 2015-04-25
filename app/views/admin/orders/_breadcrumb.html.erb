@@ -1,0 +1,9 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Orders", admin_orders_path %></li>
+  <% if current_page == "show" %>
+    <li class="active">Order #<%= @order.id.to_s %></li>
+  <% elsif current_page == "edit" %>
+      <li><%= link_to "Order #"+@order.id.to_s, admin_order_path(@order) %></li>
+      <li class="active">Edit</li>
+  <% end %>
+</ol>

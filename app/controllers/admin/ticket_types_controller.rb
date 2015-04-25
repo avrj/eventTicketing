@@ -5,7 +5,7 @@ class Admin::TicketTypesController < Admin::BaseController
   # GET /ticket_types
   # GET /ticket_types.json
   def index
-    @ticket_types = TicketType.all
+    @ticket_types = TicketType.all.order(is_seat: :asc, name: :asc)
   end
 
   # GET /ticket_types/1

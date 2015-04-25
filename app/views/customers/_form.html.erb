@@ -6,7 +6,7 @@
       <%= f.input :firstname %>
       <%= f.input :lastname %>
       <%= f.input :address, placeholder: 'Esimerkkikatu 1 A 12' %>
-      <%= f.input :postcode, placeholder: '01800' %>
+      <%= f.input :postcode, placeholder: '01800', :input_html => {:maxlength => 5} %>
       <%= f.input :city, placeholder: 'Helsinki' %>
       <%= f.input :phone, placeholder: '+358401234567' %>
 
@@ -19,6 +19,6 @@
     </div>
 
     <div class="form-actions">
-      <%= f.button :submit %>
+      <%= f.button :submit, "Register", class: "btn btn-primary" %>
     </div>
 <% end %>

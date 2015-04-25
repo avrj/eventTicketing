@@ -1,7 +1,4 @@
-<ol class="breadcrumb">
-  <li><%= link_to "Tickets", admin_tickets_path %></li>
-  <li class="active">Ticket #<%= @ticket.id.to_s %></li>
-</ol>
+<%= render partial: "breadcrumb", locals: {current_page: "show"} %>
 
 <h1 class="page-header">
   <span>Ticket</span>

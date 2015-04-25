@@ -1,0 +1,11 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Seats", admin_seats_path %></li>
+  <% if current_page == "show" %>
+    <li class="active">Seat #<%= @seat.id.to_s %></li>
+  <% elsif current_page == "new" %>
+      <li class="active">New</li>
+  <% elsif current_page == "edit" %>
+      <li><%= link_to "Seat #"+@ticket_type.id.to_s, admin_seat_path(@seat) %></li>
+      <li class="active">Edit</li>
+  <% end %>
+</ol>

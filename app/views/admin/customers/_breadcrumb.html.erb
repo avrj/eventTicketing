@@ -1,0 +1,11 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Customers", admin_customers_path %></li>
+  <% if current_page == "show" %>
+    <li class="active">Customer #<%= @customer.id.to_s %></li>
+  <% elsif current_page == "new" %>
+      <li class="active">New</li>
+  <% elsif current_page == "edit" %>
+      <li><%= link_to "Customer #"+@customer.id.to_s, admin_customer_path(@customer) %></li>
+      <li class="active">Edit</li>
+  <% end %>
+</ol>

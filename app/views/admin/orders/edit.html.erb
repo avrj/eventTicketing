@@ -1,8 +1,4 @@
-<ol class="breadcrumb">
-  <li><%= link_to "Orders", admin_orders_path %></li>
-  <li><%= link_to "Order #"+@order.id.to_s, admin_order_path(@order) %></li>
-  <li class="active">Edit</li>
-</ol>
+<%= render partial: "breadcrumb", locals: {current_page: "edit"} %>
 
 <h1 class="page-header">Editing Order
   by <%= link_to @order.customer.firstname, admin_customer_path(@order.customer) %></h1>

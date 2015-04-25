@@ -1,0 +1,28 @@
+<div class="stepwizard" style="position: fixed; bottom: 0;">
+  <div class="stepwizard-row">
+    <div class="stepwizard-step">
+      <%= button_to '1', seats_path, :method => :get, class: 'btn btn-default btn-circle' %>
+      <p>Select seats</p>
+    </div>
+    <div class="stepwizard-step">
+      <%= button_to '2', tickets_path, :method => :get, class: 'btn btn-default btn-circle' %>
+      <p>Select tickets</p>
+    </div>
+    <div class="stepwizard-step">
+      <%= button_to '3', shopping_cart_path, :method => :get, class: 'btn btn-primary btn-circle' %>
+      <p>Shopping Cart</p>
+    </div>
+    <div class="stepwizard-step">
+      <button type="button" class="btn btn-default btn-circle" disabled="disabled">4</button>
+      <p>Checkout</p>
+    </div>
+    <div class="stepwizard-step">
+      <button type="button" class="btn btn-default btn-circle" disabled="disabled">5</button>
+      <p>Payment</p>
+    </div>
+    <div class="stepwizard-step">
+      <button type="button" class="btn btn-default btn-circle" disabled="disabled">6</button>
+      <p>Order Confirmation</p>
+    </div>
+  </div>
+</div>

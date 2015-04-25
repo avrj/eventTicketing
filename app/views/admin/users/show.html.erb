@@ -1,7 +1,4 @@
-<ol class="breadcrumb">
-  <li><%= link_to "Admins", admin_users_path %></li>
-  <li class="active">Admin #<%= @admin.id.to_s %></li>
-</ol>
+<%= render partial: "breadcrumb", locals: {current_page: "show"} %>
 
 <h1 class="page-header">
   <span>Admin</span>

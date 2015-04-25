@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   namespace :admin do
-    resources :orders
+    resources :orders, except: [:new, :create]
 
     resources :tickets
 
@@ -8,17 +8,9 @@ Rails.application.routes.draw do
 
     resources :ticket_types
 
-    resources :customers do
-      get 'tickets', to: 'customers#tickets'
-      get 'orders', to: 'customers#orders'
-      get 'seats', to: 'customers#seats'
-    end
+    resources :customers
 
     resources :users
-
-    #get '/customers/:id/tickets', to: 'customers#tickets'
-    #get '/customers/:id/orders', to: 'customers#orders'
-    #get '/customers/:id/seats', to: 'customers#seats'
 
     get 'login', to: 'sessions#new'
     delete 'logout', to: 'sessions#destroy'
@@ -36,12 +28,9 @@ Rails.application.routes.draw do
 
     delete 'logout', to: 'sessions#destroy'
 
-    resources :orders, only: [:index, :show, :new, :create] do
+    resources :orders, only: [:index, :show] do
       post 'pay', to: 'orders#pay'
     end
-
-    resource :contact_information, only: [:show, :update]
-    post 'contact_information', to: 'customers#update'
 
     resource :contact_information, only: [:show, :edit, :update]
 

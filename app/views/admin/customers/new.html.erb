@@ -1,8 +1,5 @@
-<ol class="breadcrumb">
-  <li><%= link_to "Customers", admin_customers_path %></li>
-  <li class="active">New Customer</li>
-</ol>
+<%= render partial: "breadcrumb", locals: {current_page: "new"} %>
 
-<h1>New Customer</h1>
+<h1 class="page-header">New Customer</h1>
 
 <%= render 'form' %>

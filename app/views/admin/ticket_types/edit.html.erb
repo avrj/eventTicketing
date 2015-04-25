@@ -1,8 +1,4 @@
-<ol class="breadcrumb">
-  <li><%= link_to "Ticket Types", admin_ticket_types_path %></li>
-  <li><%= link_to "Ticket Type #"+@ticket_type.id.to_s, admin_ticket_type_path(@ticket_type) %></li>
-  <li class="active">Edit</li>
-</ol>
+<%= render partial: "breadcrumb", locals: {current_page: "edit"} %>
 
 <h1>Editing Ticket Type</h1>
 

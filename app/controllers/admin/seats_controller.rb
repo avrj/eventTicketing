@@ -16,12 +16,12 @@ class Admin::SeatsController < Admin::BaseController
   # GET /seats/new
   def new
     @seat = Seat.new
-    @ticket_types = TicketType.where("is_seat IS NOT NULL")
+    @ticket_types = TicketType.where(:is_seat => true)
   end
 
   # GET /seats/1/edit
   def edit
-    @ticket_types = TicketType.where("is_seat IS NOT NULL")
+    @ticket_types = TicketType.where(:is_seat => true)
     @seat.code = Ticket.find_by(seat: @seat).code
     @seat.given_away = Ticket.find_by(seat: @seat).given_away
     @seat.ticket_type = Ticket.find_by(seat: @seat).ticket_type_id

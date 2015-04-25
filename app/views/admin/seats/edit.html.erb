@@ -1,8 +1,4 @@
-<ol class="breadcrumb">
-  <li><%= link_to "Seats", admin_seats_path %></li>
-  <li><%= link_to "Seat #"+@seat.id.to_s, admin_seat_path(@seat) %></li>
-  <li class="active">Edit</li>
-</ol>
+<%= render partial: "breadcrumb", locals: {current_page: "edit"} %>
 
 <h1 class="page-header">Editing Seat</h1>
 

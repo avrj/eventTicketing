@@ -1,0 +1,11 @@
+<ol class="breadcrumb">
+  <li><%= link_to "Admins", admin_users_path %></li>
+  <% if current_page == "show" %>
+    <li class="active">Admin #<%= @admin.id.to_s %></li>
+  <% elsif current_page == "new" %>
+      <li class="active">New</li>
+  <% elsif current_page == "edit" %>
+      <li><%= link_to "Admin #"+@admin.id.to_s, admin_user_path(@admin) %></li>
+      <li class="active">Edit</li>
+  <% end %>
+</ol>
