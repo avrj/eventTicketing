@@ -56,55 +56,6 @@
         null,
         null
       ],
-      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/admin_session_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/admin_sessions_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/admins_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/application_helper.rb": [
-        1,
-        null,
-        null
-      ],
-      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/customer/contact_information_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/customer_sessions_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/customers_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/orders_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/seat_selector_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/seats_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/ticket_types_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/avrj/Documents/Projektit/eventTicketing/app/helpers/tickets_helper.rb": [
-        1,
-        null
-      ],
       "/Users/avrj/Documents/Projektit/eventTicketing/app/models/admin.rb": [
         1,
         1,
@@ -778,8 +729,6 @@
       "/Users/avrj/Documents/Projektit/eventTicketing/app/controllers/customer/base_controller.rb": [
         1,
         1,
-        null,
-        null,
         null
       ],
       "/Users/avrj/Documents/Projektit/eventTicketing/app/controllers/customer/orders_controller.rb": [
@@ -814,60 +763,6 @@
         null,
         0,
         0,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        null,
-        1,
-        null,
-        0,
-        null,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        1,
-        0,
-        0,
-        0,
-        0,
-        null,
         null,
         null,
         1,
@@ -1011,6 +906,6 @@
         null
       ]
     },
-    "timestamp": 1429956936
+    "timestamp": 1429972249
   }
 }
