@@ -14,3 +14,7 @@ deploy:
   app: event-ticketing
   on:
     repo: avrj/eventTicketing
+addons:
+	code_climate:
+		repo_token:
+			secure: "Oca4MZFzitGwCnkBhA41A/fbN3nQ4lr1LfEDZ2Z40UNETKQMeG+ov5e2eI+qGpWkTYnFzR7wNiTmMFOOym+dvqGrzOHtafs8EQuAye75yhX2TSLcEXJ0Py/U0XqlIzy1dB6gvAzC7LfYFSks/jx07hvYbuMcUKijsvlByZoSX6U="
