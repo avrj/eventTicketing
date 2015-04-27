@@ -11,7 +11,14 @@
             <hr>
             <h3><%= number_to_currency(seat.price) %></h3>
             <hr>
-            <p>14 / 120 free</p>
+            <div class="progress">
+              <div class="progress-bar progress-bar-success" role="progressbar" style="width:<%= seat.free.count.to_f/seat.tickets.count*100%>%">
+                <%= seat.free.count %> free
+              </div>
+              <div class="progress-bar progress-bar-danger" role="progressbar" style="width:<%= 100-(seat.free.count.to_f/seat.tickets.count*100)%>%">
+              </div>
+            </div>
+            <p style="text-align: center;"><%= seat.tickets.count %> total</p>
           </div>
         </div>
     <% end %>
@@ -24,12 +31,18 @@
         <div class="col-sm-3 col-md-3">
           <div class="well">
             <h2 class="text-muted"><%= ticket.name %></h2>
-
             <p><%= ticket.description %></p>
             <hr>
             <h3><%= number_to_currency(ticket.price) %></h3>
             <hr>
-            <p>14 / 120 free</p>
+            <div class="progress">
+              <div class="progress-bar progress-bar-success" role="progressbar" style="width:<%= ticket.free.count.to_f/ticket.tickets.count*100%>%">
+                <%= ticket.free.count %> free
+              </div>
+              <div class="progress-bar progress-bar-danger" role="progressbar" style="width:<%= 100-(ticket.free.count.to_f/ticket.tickets.count*100)%>%">
+              </div>
+            </div>
+            <p style="text-align: center;"><%= ticket.tickets.count %> total</p>
           </div>
         </div>
     <% end %>
