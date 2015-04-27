@@ -8,6 +8,9 @@
         <label>Password</label>
         <%= password_field_tag :password, params[:password], class: "form-control" %>
         </div>
+      <% if redirect == "checkout" %>
+        <%= hidden_field_tag 'redirect', 'checkout' %>
+        <% end %>
       <div class="form-actions">
         <%= submit_tag "Log in", class: "btn btn-primary" %>
         </div>

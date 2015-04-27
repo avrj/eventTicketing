@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   post 'shopping_cart/add_tickets', to: 'shopping_cart#add_tickets'
   delete 'shopping_cart/delete_seat', to: 'shopping_cart#delete_seat'
   delete 'shopping_cart', to: 'shopping_cart#destroy'
-  post 'shopping_cart/checkout', to: 'shopping_cart#checkout'
+  get 'shopping_cart/checkout', to: 'shopping_cart#checkout'
   post 'shopping_cart/update_qty', to: 'shopping_cart#update_qty'
 
   get 'login_or_register', to: 'shopping_cart#login_or_register'

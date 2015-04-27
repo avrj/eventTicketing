@@ -84,7 +84,7 @@
                     <span class="glyphicon glyphicon-remove"></span> Empty Cart
                 <% end %></td>
               <td>
-                <%= button_to shopping_cart_checkout_path, :method => :post, class: 'btn btn-success' do %>
+                <%= button_to shopping_cart_checkout_path, :method => :get, class: 'btn btn-success' do %>
                     Checkout <span class="glyphicon glyphicon-play"></span>
                 <% end %></td>
             </tr>

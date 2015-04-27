@@ -16,6 +16,9 @@
       <br/>
       <%= f.input :password %>
       <%= f.input :password_confirmation %>
+      <% if redirect == "checkout" %>
+          <%= hidden_field_tag 'redirect', 'checkout' %>
+      <% end %>
     </div>
 
     <div class="form-actions">

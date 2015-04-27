@@ -12,6 +12,12 @@ class ShoppingCartController < ApplicationController
     @tickets.each { |ticket_type_id, quantity| @shopping_cart_total_price += TicketType.find(ticket_type_id).price.to_i * quantity.to_i } unless @tickets.nil?
 
     @ticket_types = TicketType.where(:id => @tickets.keys, :is_seat => false) unless @tickets.nil?
+
+    if @tickets or @seats.size > 0
+      session[:shopping_cart_current_step] = "shopping_cart"
+    else
+      session.delete(:shopping_cart_current_step)
+    end
   end
 
   def add_tickets
@@ -67,7 +73,11 @@ class ShoppingCartController < ApplicationController
   end
 
   def checkout
-    redirect_to login_or_register_path, alert:'you should be signed in' if current_customer_user.nil?
+    redirect_to login_or_register_path, alert:'you should be signed in' and return if current_customer_user.nil?
+
+    if session[:shopping_cart_current_step] != "shopping_cart"
+      redirect_to shopping_cart_path and return
+    end
 
     @seats = Seat.where(:id => session[:seats]).joins(:ticket).where('tickets.reservation_id is null').order(table: :asc, seat: :asc)
     @shopping_cart_total_price = 0

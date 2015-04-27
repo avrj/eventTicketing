@@ -10,7 +10,11 @@ class Customer::SessionsController < ApplicationController
 
     if customerUser && customerUser.authenticate(params[:password])
       session[:customer_user_id] = customerUser.id
-      redirect_to customer_root_path, notice: "Welcome back!"
+      if params[:redirect] == "checkout"
+        redirect_to shopping_cart_checkout_path
+      else
+        redirect_to customer_orders_path, notice: "Welcome back!"
+      end
     else
       alert = "Username and/or password mismatch"
       redirect_to :back, alert: alert
