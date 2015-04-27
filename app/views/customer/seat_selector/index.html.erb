@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="sub-header">Available seats</h1>
+  <h1 class="sub-header">Seats</h1>
 
   <div class="row">
     <% @seats.each do |seat| %>
@@ -17,6 +17,9 @@
                 <%= seat.free.count %> free
               </div>
               <div class="progress-bar progress-bar-danger" role="progressbar" style="width:<%= 100-(seat.free.count.to_f/seat.tickets.count*100)%>%">
+                <% if seat.free.count == 0 %>
+                    sold out
+                <% end %>
               </div>
             </div>
             <p style="text-align: center;"><%= seat.tickets.count %> total</p>
@@ -26,7 +29,7 @@
     <% end %>
   </div>
 
-  <h1 class="sub-header">Available tickets</h1>
+  <h1 class="sub-header">Tickets</h1>
 
   <div class="row">
     <% @tickets.each do |ticket| %>
@@ -43,6 +46,9 @@
                 <%= ticket.free.count %> free
               </div>
               <div class="progress-bar progress-bar-danger" role="progressbar" style="width:<%= 100-(ticket.free.count.to_f/ticket.tickets.count*100)%>%">
+                <% if ticket.free.count == 0 %>
+                sold out
+                <% end %>
               </div>
             </div>
             <p style="text-align: center;"><%= ticket.tickets.count %> total</p>
