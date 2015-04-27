@@ -47,6 +47,7 @@
                           </div>
                         </div>
                       </td>
+                      <%= form_tag shopping_cart_add_tickets_path do %>
                       <td class="col-sm-1 col-md-1" style="text-align: center">
                         <% if session[:tickets] %>
                             <input type="number" name="tickets[<%= ticket_type.id %>]" min="0" max="<%= ticket_type.free.count %>" value="<%= session[:tickets][ticket_type.id.to_s] %>" class="form-control"/>
@@ -59,10 +60,10 @@
                         <strong><%= number_to_currency(ticket_type.price * @tickets[ticket_type.id.to_s].to_i) %></strong>
                       </td>
                       <td class="col-sm-1 col-md-1">
-
                         <%= button_to shopping_cart_update_qty_path(id: ticket_type), :class => "btn btn-primary" do %>
                             <span class="glyphicon glyphicon-refresh"></span> Update qty
                         <% end %></td>
+                          <% end %>
                     </tr>
                 <% end %>
             <% end %>

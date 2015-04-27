@@ -30,6 +30,7 @@ class ShoppingCartController < ApplicationController
         session[:tickets] = params[:tickets]
         redirect_to shopping_cart_path
       else
+        session[:tickets] = nil
         redirect_to :back
       end
     else

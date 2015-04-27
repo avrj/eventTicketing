@@ -3,6 +3,7 @@
 
   <div class="row">
     <% @seats.each do |seat| %>
+        <% if seat.tickets.count > 0 %>
         <div class="col-sm-3 col-md-3">
           <div class="well">
             <h2 class="text-muted"><%= seat.name %></h2>
@@ -21,6 +22,7 @@
             <p style="text-align: center;"><%= seat.tickets.count %> total</p>
           </div>
         </div>
+            <% end %>
     <% end %>
   </div>
 
@@ -28,6 +30,7 @@
 
   <div class="row">
     <% @tickets.each do |ticket| %>
+        <% if ticket.tickets.count > 0 %>
         <div class="col-sm-3 col-md-3">
           <div class="well">
             <h2 class="text-muted"><%= ticket.name %></h2>
@@ -45,6 +48,7 @@
             <p style="text-align: center;"><%= ticket.tickets.count %> total</p>
           </div>
         </div>
+            <% end %>
     <% end %>
   </div>
 </div>
