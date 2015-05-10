@@ -1,6 +1,6 @@
 class Admin::OrdersController < Admin::BaseController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_that_admin_is_superuser, only: [:create, :edit, :update, :destroy]
+  before_action :ensure_that_admin_is_superuser, only: [:create, :edit, :update, :destroy, :destroy_multiple]
 
 
   # GET /orders
@@ -16,31 +16,10 @@ class Admin::OrdersController < Admin::BaseController
     @tickets = Ticket.where(reservation: @order, seat: nil)
   end
 
-  # GET /orders/new
-  def new
-    @order = Reservation.new
-  end
-
   # GET /orders/1/edit
   def edit
     @seats = Seat.all.joins(:ticket).where('tickets.reservation_id = ' + @order.id.to_s)
     @tickets = Ticket.where(reservation: @order, seat: nil)
-  end
-
-  # POST /orders
-  # POST /orders.json
-  def create
-    @order = Reservation.new(order_params)
-
-    respond_to do |format|
-      if @order.save
-        format.html { redirect_to @order, notice: 'Reservation was successfully created.' }
-        format.json { render :show, status: :created, location: @order }
-      else
-        format.html { render :new }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /orders/1
@@ -55,6 +34,16 @@ class Admin::OrdersController < Admin::BaseController
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def destroy_multiple
+    @orders = Reservation.find(params[:order_ids])
+
+    @orders.each do |order|
+      order.delete
+    end
+
+    redirect_to admin_orders_path, notice: "Orders deleted."
   end
 
   # DELETE /orders/1

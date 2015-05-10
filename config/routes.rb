@@ -2,13 +2,24 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :orders, except: [:new, :create]
 
-    resources :tickets
+    resources :tickets do
+      post 'toggle_given_away', to: "tickets#toggle_given_away"
+    end
 
-    resources :seats
+    resources :seats do
+      post 'toggle_given_away', to: "seats#toggle_given_away"
+    end
 
     resources :ticket_types
 
     resources :customers
+
+    delete 'customers', to: 'customers#destroy_multiple'
+    delete 'seats', to: 'seats#destroy_multiple'
+    delete 'orders', to: 'orders#destroy_multiple'
+    delete 'tickets', to: 'tickets#destroy_multiple'
+    delete 'admins', to: 'admins#destroy_multiple'
+    delete 'users', to: 'users#destroy_multiple'
 
     resources :users
 
@@ -28,7 +39,7 @@ Rails.application.routes.draw do
 
     delete 'logout', to: 'sessions#destroy'
 
-    resources :orders, only: [:index, :show] do
+    resources :orders, only: [:new, :create, :index, :show] do
       post 'pay', to: 'orders#pay'
     end
 
@@ -37,9 +48,8 @@ Rails.application.routes.draw do
     resource :session, only: [:new, :create, :delete]
   end
 
-  resources :customers, only: [:new, :create]
-
-  resource :orders, only: [:create]
+  post 'customers', to: "customer/customers#create"
+  post 'customers/new', to: "customer/customers#new"
 
   get 'tickets', to: 'ticket_types#index'
   get 'seats', to: 'seats#index'

@@ -1,7 +1,56 @@
 class Customer::OrdersController < Customer::BaseController
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :ensure_that_customer_is_signed_in
+  before_action :set_order, only: [:show, :edit, :update, :destroy]
 
+  def create
+    @tickets = session[:tickets]
+    @seats = session[:seats]
+
+    @real_seats = Seat.where(:id => @seats).joins(:ticket).where("tickets.reservation_id is null AND tickets.given_away = 'f'")
+
+    @order = Reservation.new
+    @order.customer = current_customer_user
+    @order.paid = params[:is_paid]
+    @order.save
+
+    tickets_count = 0
+
+    shopping_cart_total_price = 0
+
+    if @tickets
+      @tickets.each do |ticket_type_id, quantity|
+        tickets_count += quantity.to_i
+
+        shopping_cart_total_price += TicketType.find(ticket_type_id).price.to_i * quantity.to_i
+
+        quantity.to_i.times do |n|
+          Ticket.where(ticket_type_id: ticket_type_id, reservation: nil, given_away: false).limit(1).update_all(:reservation_id => @order.id)
+        end
+      end
+    end
+
+    @real_seats.each do |real_seat|
+      real_seat.ticket.update_attribute(:reservation_id, @order.id)
+      shopping_cart_total_price += real_seat.ticket.ticket_type.price
+    end
+
+    if @seats
+      if @tickets
+        slack_msg("#{current_customer_user.firstname} #{current_customer_user.lastname} bought  #{ActionController::Base.helpers.pluralize(tickets_count, "ticket")} and #{ActionController::Base.helpers.pluralize(@seats.count, "seat")} (total of #{ActionController::Base.helpers.number_to_currency(shopping_cart_total_price)})")
+      else
+        slack_msg("#{current_customer_user.firstname} #{current_customer_user.lastname} bought #{ActionController::Base.helpers.pluralize(@seats.count, "seat")}  (total of #{ActionController::Base.helpers.number_to_currency(shopping_cart_total_price)})")
+      end
+    else
+      if @tickets
+        slack_msg("#{current_customer_user.firstname} #{current_customer_user.lastname} bought  #{ActionController::Base.helpers.pluralize(tickets_count, "ticket")}  (total of #{ActionController::Base.helpers.number_to_currency(shopping_cart_total_price)})")
+      end
+    end
+
+    session.delete(:seats)
+    session.delete(:tickets)
+
+    redirect_to customer_order_path(@order), notice: 'Order completed.'
+  end
 
   def pay
     @order = Reservation.find(params[:order_id])

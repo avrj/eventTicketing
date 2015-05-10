@@ -1,6 +1,6 @@
 class Admin::TicketTypesController < Admin::BaseController
   before_action :set_ticket_type, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_that_admin_is_superuser, only: [:create, :edit, :update, :destroy]
+  before_action :ensure_that_admin_is_superuser, only: [:create, :edit, :update, :destroy, :destroy_multiple]
 
   # GET /ticket_types
   # GET /ticket_types.json
@@ -52,6 +52,16 @@ class Admin::TicketTypesController < Admin::BaseController
         format.json { render json: @ticket_type.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def destroy_multiple
+    @ticket_types = TicketType.find(params[:ticket_type_ids])
+
+    @ticket_types.each do |customer|
+      ticket_type.delete
+    end
+
+    redirect_to admin_ticket_types_path, notice: "Ticket Types deleted."
   end
 
   # DELETE /ticket_types/1

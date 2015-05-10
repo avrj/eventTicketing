@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150424113458) do
+ActiveRecord::Schema.define(version: 20150428200826) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "username"
     t.string   "password_digest"
-    t.integer  "level",           default: 0
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.boolean  "superuser",       default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   create_table "customers", force: :cascade do |t|

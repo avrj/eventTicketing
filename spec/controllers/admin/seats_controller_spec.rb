@@ -181,14 +181,17 @@ RSpec.describe Admin::SeatsController, type: :controller do
 
   describe 'DELETE destroy' do
     context 'with valid attributes' do
-      it 'destroys the seat' do
+      it 'destroys the seat and ticket' do
         admin = FactoryGirl.create(:admin)
         session[:admin_user_id] = admin.id
 
         seat = FactoryGirl.create(:seat)
+        ticket_type = FactoryGirl.create(:ticket_type_seat)
+        ticket = FactoryGirl.create(:ticket, seat: seat, ticket_type: ticket_type)
 
         delete :destroy, {:id => seat.id, :seat => FactoryGirl.attributes_for(:seat) }
         expect(Seat.count).to eq(0)
+        expect(Ticket.count).to eq(0)
       end
 
       it 'redirects to the "index" action' do
@@ -196,10 +199,99 @@ RSpec.describe Admin::SeatsController, type: :controller do
         session[:admin_user_id] = admin.id
 
         seat = FactoryGirl.create(:seat)
+        ticket_type = FactoryGirl.create(:ticket_type_seat)
+        ticket = FactoryGirl.create(:ticket, seat: seat, ticket_type: ticket_type)
 
         delete :destroy, {:id => seat.id, :seat => FactoryGirl.attributes_for(:seat) }
         expect(response).to redirect_to admin_seats_path
       end
     end
+  end
+
+  describe 'DELETE destroy multiple' do
+    context 'with valid attributes' do
+      it 'destroys the seats and tickets' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        seat = FactoryGirl.create(:seat)
+        ticket_type = FactoryGirl.create(:ticket_type_seat)
+        ticket = FactoryGirl.create(:ticket, seat: seat, ticket_type: ticket_type)
+
+        delete :destroy_multiple, {:seat_ids => [seat.id] }
+        expect(Seat.count).to eq(0)
+        expect(Ticket.count).to eq(0)
+      end
+
+      it 'redirects to the "index" action' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        seat = FactoryGirl.create(:seat)
+        ticket_type = FactoryGirl.create(:ticket_type_seat)
+        ticket = FactoryGirl.create(:ticket, seat: seat, ticket_type: ticket_type)
+
+        delete :destroy_multiple, {:seat_ids => [seat.id] }
+        expect(response).to redirect_to admin_seats_path
+      end
+    end
+  end
+
+  describe 'POST toggle_given_away' do
+    context 'with a seat that is already given away' do
+      it 'changes the seat to not given away' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        seat = FactoryGirl.create(:seat)
+        ticket_type = FactoryGirl.create(:ticket_type)
+        ticket = FactoryGirl.create(:ticket, seat: seat, given_away: true, ticket_type: ticket_type)
+
+        request.env['HTTP_REFERER'] = "http://test.host/admin/seats/new"
+        post :toggle_given_away, {:seat_id => seat.id}
+        expect(Ticket.find_by(seat: seat).given_away).to eq(false)
+      end
+
+      it 'redirects to back' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        seat = FactoryGirl.create(:seat)
+        ticket_type = FactoryGirl.create(:ticket_type)
+        ticket = FactoryGirl.create(:ticket, seat: seat, given_away: true, ticket_type: ticket_type)
+
+        request.env['HTTP_REFERER'] = "http://test.host/admin/seats/new"
+        post :toggle_given_away, {:seat_id => seat.id}
+        expect(response).to redirect_to :back
+      end
+    end
+
+  context 'with a seat that is not yet given away' do
+    it 'changes the seat to given away' do
+      admin = FactoryGirl.create(:admin)
+      session[:admin_user_id] = admin.id
+
+      seat = FactoryGirl.create(:seat)
+      ticket_type = FactoryGirl.create(:ticket_type)
+      ticket = FactoryGirl.create(:ticket, seat: seat, given_away: false, ticket_type: ticket_type)
+
+      request.env['HTTP_REFERER'] = "http://test.host/admin/seats/new"
+      post :toggle_given_away, {:seat_id => seat.id}
+      expect(Ticket.find_by(seat: seat).given_away).to eq(true)
+    end
+
+    it 'redirects to back' do
+      admin = FactoryGirl.create(:admin)
+      session[:admin_user_id] = admin.id
+
+      seat = FactoryGirl.create(:seat)
+      ticket_type = FactoryGirl.create(:ticket_type)
+      ticket = FactoryGirl.create(:ticket, seat: seat, given_away: false, ticket_type: ticket_type)
+
+      request.env['HTTP_REFERER'] = "http://test.host/admin/seats/new"
+      post :toggle_given_away, {:seat_id => seat.id}
+      expect(response).to redirect_to :back
+    end
+  end
   end
 end

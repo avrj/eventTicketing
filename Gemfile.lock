@@ -38,7 +38,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (6.0.0)
-    autoprefixer-rails (5.1.10)
+    autoprefixer-rails (5.1.11)
       execjs
       json
     bcrypt (3.1.10)
@@ -51,6 +51,8 @@ GEM
     bootstrap-sass (3.3.4.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
+    bootswatch-rails (3.2.4)
+      railties (>= 3.1)
     builder (3.2.2)
     byebug (4.0.5)
       columnize (= 0.9.0)
@@ -84,8 +86,6 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    faraday (0.9.1)
-      multipart-post (>= 1.2, < 3)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
@@ -106,11 +106,10 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mime-types (2.4.3)
+    mime-types (2.5)
     mini_portile (0.6.2)
-    minitest (5.6.0)
+    minitest (5.6.1)
     multi_json (1.11.0)
-    multipart-post (2.0.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     pg (0.18.1)
@@ -119,6 +118,9 @@ GEM
       rack (>= 1.1.3)
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack_session_access (0.1.1)
+      builder (>= 2.0.0)
+      rack (>= 1.0.0)
     rails (4.2.0)
       actionmailer (= 4.2.0)
       actionpack (= 4.2.0)
@@ -193,11 +195,9 @@ GEM
       json (~> 1.8)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    slack-notify (0.4.1)
-      faraday (~> 0.9)
-      json (~> 1.8)
+    slack-notifier (1.2.0)
     spring (1.3.4)
-    sprockets (3.0.1)
+    sprockets (3.0.3)
       rack (~> 1.0)
     sprockets-rails (2.2.4)
       actionpack (>= 3.0)
@@ -230,6 +230,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   better_errors
   bootstrap-sass
+  bootswatch-rails
   byebug
   capybara
   codeclimate-test-reporter
@@ -243,6 +244,7 @@ DEPENDENCIES
   launchy
   pg
   rack-mini-profiler
+  rack_session_access
   rails (= 4.2.0)
   rails-i18n
   rails_12factor
@@ -253,7 +255,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   simple_form
   simplecov
-  slack-notify
+  slack-notifier
   spring
   sqlite3
   turbolinks

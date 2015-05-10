@@ -1,4 +1,5 @@
 class Customer::ContactInformationsController < Customer::BaseController
+  before_action :ensure_that_customer_is_signed_in
   before_action :set_customer
 
   def show
@@ -6,20 +7,23 @@ class Customer::ContactInformationsController < Customer::BaseController
   end
 
   def edit
-
   end
 
   def update
     if @customer.authenticate(customer_params[:current_password])
         if customer_params[:password].empty? && customer_params[:password_confirmation].empty?
           if @customer.update(customer_params_without_new_password)
-            redirect_to customer_contact_information_path, notice: 'Customer was successfully updated.'
+            redirect_to customer_contact_information_path, notice: 'Contact information was successfully updated.'
           else
             render :edit
           end
         else
-          if @customer.update(customer_params_with_new_password)
-            redirect_to customer_contact_information_path, notice: 'Customer was successfully updated.'
+          if customer_params[:password] == customer_params[:password_confirmation]
+            if @customer.update(customer_params_with_new_password)
+              redirect_to customer_contact_information_path, notice: 'Contact information was successfully updated.'
+            else
+              render :edit
+            end
           else
             render :edit
           end

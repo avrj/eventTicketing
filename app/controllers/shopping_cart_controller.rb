@@ -1,19 +1,6 @@
 class ShoppingCartController < ApplicationController
   def index
-    @seats = Seat.where(:id => session[:seats]).joins(:ticket).where('tickets.reservation_id is null').order(table: :asc, seat: :asc)
-    @shopping_cart_total_price = 0
-
-    @seats.each do |seat|
-      @shopping_cart_total_price += seat.ticket.ticket_type.price
-    end
-
-    @tickets = session[:tickets]
-
-    @tickets.each { |ticket_type_id, quantity| @shopping_cart_total_price += TicketType.find(ticket_type_id).price.to_i * quantity.to_i } unless @tickets.nil?
-
-    @ticket_types = TicketType.where(:id => @tickets.keys, :is_seat => false) unless @tickets.nil?
-
-    if @tickets or @seats.size > 0
+    if shopping_cart.tickets or shopping_cart.seats.count > 0
       session[:shopping_cart_current_step] = "shopping_cart"
     else
       session.delete(:shopping_cart_current_step)
@@ -33,10 +20,10 @@ class ShoppingCartController < ApplicationController
       end
 
       if count > 0
-        session[:tickets] = params[:tickets]
+        shopping_cart.merge_tickets(params[:tickets])
         redirect_to shopping_cart_path
       else
-        session[:tickets] = nil
+        shopping_cart.delete_tickets
         redirect_to :back
       end
     else
@@ -47,7 +34,7 @@ class ShoppingCartController < ApplicationController
 
   def add_seats
       if params.has_key?(:seats)
-        session[:seats] = params[:seats]
+        shopping_cart.merge_seats params[:seats]
         redirect_to shopping_cart_path
       else
         redirect_to :back
@@ -55,7 +42,7 @@ class ShoppingCartController < ApplicationController
   end
 
   def delete_seat
-    session[:seats].delete(params[:id])
+    shopping_cart.delete_seat params[:id]
 
     redirect_to shopping_cart_path
   end
@@ -66,8 +53,7 @@ class ShoppingCartController < ApplicationController
   end
 
   def destroy
-    session.delete(:seats)
-    session.delete(:tickets)
+   shopping_cart.empty
 
     redirect_to shopping_cart_path
   end
@@ -78,19 +64,6 @@ class ShoppingCartController < ApplicationController
     if session[:shopping_cart_current_step] != "shopping_cart"
       redirect_to shopping_cart_path and return
     end
-
-    @seats = Seat.where(:id => session[:seats]).joins(:ticket).where('tickets.reservation_id is null').order(table: :asc, seat: :asc)
-    @shopping_cart_total_price = 0
-
-    @seats.each do |seat|
-      @shopping_cart_total_price += seat.ticket.ticket_type.price
-    end
-
-    @tickets = session[:tickets]
-
-    @tickets.each { |ticket_type_id, quantity| @shopping_cart_total_price += TicketType.find(ticket_type_id).price.to_i * quantity.to_i } unless @tickets.nil?
-
-    @ticket_types = TicketType.where(:id => @tickets.keys) unless @tickets.nil?
   end
 
   def login_or_register

@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::BaseController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_that_admin_is_superuser, only: [:create, :edit, :update, :destroy]
+  before_action :ensure_that_admin_is_superuser, only: [:create, :edit, :update, :destroy, :destroy_multiple]
 
   # GET /admins
   # GET /admins.json
@@ -52,6 +52,16 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
+  def destroy_multiple
+    @admins = Admin.find(params[:admin_ids])
+
+    @admins.each do |admin|
+      admin.delete
+    end
+
+    redirect_to admin_users_path, notice: "Admins deleted."
+  end
+
   # DELETE /admins/1
   # DELETE /admins/1.json
   def destroy
@@ -70,6 +80,6 @@ class Admin::UsersController < Admin::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def admin_params
-      params.require(:admin).permit(:username, :password, :password_confirmation, :level)
+      params.require(:admin).permit(:username, :password, :password_confirmation, :superuser)
     end
 end

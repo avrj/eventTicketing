@@ -1,14 +1,18 @@
 <h1 class="page-header">
   <span>Tickets</span>
-  <%= link_to 'New Ticket', new_admin_ticket_path, class: "btn btn-primary pull-right" %>
+  <%= link_to new_admin_ticket_path, class: "btn btn-primary pull-right" do %>
+      <span class="glyphicon glyphicon-plus"></span> Add
+  <% end %>
 </h1>
 <% if !@tickets.any? %>
     <p>Looks like there are no tickets yet.</p>
 <% else %>
     <p>Total of <%= pluralize(@tickets.count, "ticket") %>.</p>
+    <%= form_tag admin_tickets_path, :method => :delete do %>
     <table class="table table-striped">
       <thead>
       <tr>
+        <th></th>
         <th>Type</th>
         <th>Status</th>
         <th>Given away</th>
@@ -20,6 +24,7 @@
       <tbody>
       <% @tickets.each do |ticket| %>
           <tr>
+            <td><%= check_box_tag 'ticket_ids[]', ticket.id %></td>
             <td><%= link_to ticket.ticket_type.name, admin_ticket_type_path(ticket.ticket_type) %></td>
             <% if ticket.reservation.nil? %>
                 <td><span class="label label-success">Free</span></td>
@@ -35,14 +40,31 @@
             <% end %>
             <td><%= ticket.code %></td>
             <td>
-              <div class="btn-group pull-right" role="group" aria-label="...">
-                <%= link_to 'Show', admin_ticket_path(ticket), class: "btn btn-success" %>
-                <%= link_to 'Edit', edit_admin_ticket_path(ticket), class: "btn btn-primary" %>
-                <%= link_to 'Destroy', admin_ticket_path(ticket), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+              <!-- Split button -->
+              <div class="btn-group pull-right">
+                <%= link_to 'Show', admin_ticket_path(ticket), class: "btn btn-primary" %>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <%= link_to edit_admin_ticket_path(ticket) do %>
+                        <span class="glyphicon glyphicon-edit"></span> Edit
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to admin_ticket_path(ticket), method: :delete, data: {confirm: 'Are you sure?'} do %>
+                        <span class="glyphicon glyphicon-remove"></span> Remove
+                    <% end %>
+                  </li>
+                </ul>
               </div>
             </td>
           </tr>
       <% end %>
       </tbody>
     </table>
+        <%= submit_tag "Delete selected", class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+        <% end %>
 <% end %>

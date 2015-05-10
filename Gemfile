@@ -39,15 +39,17 @@ gem 'jquery-turbolinks'
 
 gem 'rack-mini-profiler'
 
-gem 'simple_form'
-
-gem 'slack-notify'
+gem 'slack-notifier'
 
 gem 'email_validator'
 
 gem 'rails-i18n'
 
 gem 'codeclimate-test-reporter', group: :test, require: nil
+
+gem 'simple_form'
+
+gem 'bootswatch-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -80,6 +82,7 @@ group :test do
   gem 'launchy'
   #gem 'selenium-webdriver'
   gem 'database_cleaner'
+  gem 'rack_session_access'
 end
 
 group :development do

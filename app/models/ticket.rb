@@ -5,4 +5,6 @@ class Ticket < ActiveRecord::Base
 
   validates :code, uniqueness: true
   validates :ticket_type, :presence => true
+
+  attr_accessor :quantity
 end

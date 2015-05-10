@@ -1,4 +1,4 @@
-class CustomersController < ApplicationController
+class Customer::CustomersController < ApplicationController
   # GET /customers/new
   def new
     @customer = Customer.new

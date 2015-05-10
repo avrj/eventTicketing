@@ -3,7 +3,7 @@
     <div class="col-sm-12 col-md-10 col-md-offset-1">
       <h1 class="page-header">Shopping Cart</h1>
 
-      <% if @tickets or @seats.size > 0 %>
+      <% if shopping_cart.tickets or shopping_cart.seats.count > 0 %>
           <table class="table table-hover">
             <thead>
             <tr>
@@ -15,8 +15,8 @@
             </tr>
             </thead>
             <tbody>
-            <% if @seats.size >0 %>
-                <% @seats.each do |seat| %>
+            <% if shopping_cart.seats.count > 0 %>
+                <% shopping_cart.seats.each do |seat| %>
                     <tr>
                       <td class="col-sm-8 col-md-6">
                         <div class="media">
@@ -37,8 +37,8 @@
                     </tr>
                 <% end %>
             <% end %>
-            <% if @tickets %>
-                <% @ticket_types.each do |ticket_type| %>
+            <% if shopping_cart.tickets %>
+                <% shopping_cart.ticket_types.each do |ticket_type| %>
                     <tr>
                       <td class="col-sm-8 col-md-6">
                         <div class="media">
@@ -57,7 +57,7 @@
                       </td>
                       <td class="col-sm-1 col-md-1 text-center"><%= number_to_currency(ticket_type.price) %></td>
                       <td class="col-sm-1 col-md-1 text-center">
-                        <strong><%= number_to_currency(ticket_type.price * @tickets[ticket_type.id.to_s].to_i) %></strong>
+                        <strong><%= number_to_currency(ticket_type.price * session[:tickets][ticket_type.id.to_s].to_i) %></strong>
                       </td>
                       <td class="col-sm-1 col-md-1">
                         <%= button_to shopping_cart_update_qty_path(id: ticket_type), :class => "btn btn-primary" do %>
@@ -72,7 +72,7 @@
               <td>  </td>
               <td>  </td>
               <td><h3>Total</h3></td>
-              <td class="text-right"><h3><strong><%= number_to_currency(@shopping_cart_total_price) %></strong></h3>
+              <td class="text-right"><h3><strong><%= number_to_currency(shopping_cart.total_price) %></strong></h3>
               </td>
             </tr>
             <tr>

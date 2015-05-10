@@ -16,8 +16,13 @@
     <td><%= @admin.username %></td>
   </tr>
   <tr>
-    <th>Level</th>
-    <td><%= @admin.level %></td>
+    <th>Superuser?</th>
+    <% if @admin.superuser %>
+        <td>Yes</td>
+    <% else %>
+        <td>No</td>
+    <% end %>
+    <td>
   </tr>
   </tbody>
   </table>

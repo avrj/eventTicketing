@@ -3,14 +3,15 @@ class Customer::SessionsController < ApplicationController
 
   def new
     # renderöi kirjautumissivun
+    @customer = Customer.new
   end
 
   def create
-    customerUser = Customer.find_by email: params[:email]
+    customerUser = Customer.find_by email: customer_params[:email]
 
-    if customerUser && customerUser.authenticate(params[:password])
+    if customerUser && customerUser.authenticate(customer_params[:password])
       session[:customer_user_id] = customerUser.id
-      if params[:redirect] == "checkout"
+      if customer_params[:redirect] == "checkout"
         redirect_to shopping_cart_checkout_path
       else
         redirect_to customer_orders_path, notice: "Welcome back!"
@@ -26,5 +27,11 @@ class Customer::SessionsController < ApplicationController
     session[:customer_user_id] = nil
     # uudelleenohjataan sovellus pääsivulle
     redirect_to :root
+  end
+
+  private
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def customer_params
+    params.require(:customer).permit(:email, :password, :redirect)
   end
 end

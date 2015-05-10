@@ -8,7 +8,7 @@ FactoryGirl.define do
     city "Helsinki"
     phone "+358401231234"
     date_of_birth "1989-07-10"
-    gender 0
+    gender :male
     password "Foobar12"
     password_confirmation "Foobar12"
   end
@@ -22,7 +22,7 @@ FactoryGirl.define do
     city "Helsinki"
     phone "+358401231234"
     date_of_birth "1989-07-10"
-    gender 0
+    gender :male
     password "abc"
     password_confirmation "abc"
   end

@@ -40,11 +40,7 @@
             <tr>
               <td><%= ticket.ticket_type.name %></td>
               <td><%= number_to_currency(ticket.ticket_type.price) %></td>
-              <% if @order.paid %>
-                  <td>koodi</td>
-              <% else %>
-                  <td>Unavailable</td>
-              <% end %>
+                  <td><%= ticket.code %></td>
             </tr>
         <% end %>
         </tbody>
@@ -74,11 +70,7 @@
               <td><%= seat.table %></td>
               <td><%= seat.seat %></td>
               <td><%= number_to_currency(seat.ticket.ticket_type.price) %></td>
-              <% if @order.paid %>
-                  <td>koodi</td>
-              <% else %>
-                  <td>Unavailable</td>
-              <% end %>
+                  <td><%= seat.ticket.code %></td>
               <td>
                 <button class="btn btn-danger">Remove seat</button>
                 <button class="btn btn-danger">Generate new code</button>

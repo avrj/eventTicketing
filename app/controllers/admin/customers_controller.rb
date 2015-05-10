@@ -1,23 +1,11 @@
 class Admin::CustomersController < Admin::BaseController
-  before_action :set_customer, only: [:show, :edit, :update, :destroy, :tickets, :orders, :seats]
-  before_action :ensure_that_admin_is_superuser, only: [:create, :edit, :update, :destroy]
+  before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_admin_is_superuser, only: [:create, :edit, :update, :destroy, :destroy_multiple]
 
   # GET /customers
   # GET /customers.json
   def index
     @customers = Customer.all
-  end
-
-  def tickets
-    @tickets = @customer.tickets
-  end
-
-  def orders
-    @orders = @customer.reservations
-  end
-
-  def seats
-    @seats = @customer.seats
   end
 
   # GET /customers/1
@@ -80,6 +68,16 @@ class Admin::CustomersController < Admin::BaseController
       format.html { redirect_to admin_customers_url, notice: 'Customer was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def destroy_multiple
+    @customers = Customer.find(params[:customer_ids])
+
+    @customers.each do |customer|
+      customer.delete
+    end
+
+    redirect_to admin_customers_path, notice: "Customers deleted."
   end
 
   private

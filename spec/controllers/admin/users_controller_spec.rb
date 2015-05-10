@@ -174,4 +174,24 @@ RSpec.describe Admin::UsersController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE destroy multiple' do
+    context 'with valid attributes' do
+      it 'destroys the admins' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        delete :destroy_multiple, {:admin_ids => [admin.id]}
+        expect(Admin.count).to eq(0)
+      end
+
+      it 'redirects to the "index" action' do
+        admin = FactoryGirl.create(:admin)
+        session[:admin_user_id] = admin.id
+
+        delete :destroy_multiple, {:admin_ids => [admin.id]}
+        expect(response).to redirect_to admin_users_path
+      end
+    end
+  end
 end

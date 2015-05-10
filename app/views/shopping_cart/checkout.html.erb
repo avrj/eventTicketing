@@ -21,7 +21,7 @@
           <p>Please review your order before proceeding.</p>
         </div>
         </span>
-        <%= form_tag orders_path do %>
+        <%= form_tag customer_orders_path do %>
             <table class="table table-hover">
               <thead>
               <tr>
@@ -32,8 +32,8 @@
               </tr>
               </thead>
               <tbody>
-              <% if @seats %>
-                  <% @seats.each do |seat| %>
+              <% if shopping_cart.seats %>
+                  <% shopping_cart.seats.each do |seat| %>
                       <tr>
                         <td class="col-md-9"><%= seat.ticket.ticket_type.name %>, <%= seat.table %>
                           .<%= seat.seat %></td>
@@ -43,14 +43,14 @@
                       </tr>
                   <% end %>
               <% end %>
-              <% if @tickets %>
-                  <% @ticket_types.each do |ticket_type| %>
-                      <% if @tickets[ticket_type.id.to_s].to_i > 0 %>
+              <% if shopping_cart.tickets %>
+                  <% shopping_cart.ticket_types.each do |ticket_type| %>
+                      <% if session[:tickets][ticket_type.id.to_s].to_i > 0 %>
                           <tr>
                             <td class="col-md-9"><%= ticket_type.name %></td>
-                            <td class="col-md-1"><%= @tickets[ticket_type.id.to_s] %></td>
+                            <td class="col-md-1"><%= session[:tickets][ticket_type.id.to_s] %></td>
                             <td class="col-md-1 text-center"><%= number_to_currency(ticket_type.price) %></td>
-                            <td class="col-md-1 text-center"><%= number_to_currency(ticket_type.price * @tickets[ticket_type.id.to_s].to_i) %></td>
+                            <td class="col-md-1 text-center"><%= number_to_currency(ticket_type.price * session[:tickets][ticket_type.id.to_s].to_i) %></td>
                           </tr>
                       <% end %>
                   <% end %>
@@ -65,7 +65,7 @@
                 <td>  </td>
                 <td class="text-right"><h4><strong>Total: </strong></h4></td>
                 <td class="text-center text-danger">
-                  <h4><strong><%= number_to_currency(@shopping_cart_total_price) %></strong></h4></td>
+                  <h4><strong><%= number_to_currency(shopping_cart.total_price) %></strong></h4></td>
               </tr>
               </tbody>
             </table>

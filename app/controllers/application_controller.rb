@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_admin_user
   helper_method :current_customer_user
   helper_method :shopping_cart_count
+  helper_method :slack_msg
+  helper_method :shopping_cart
 
   def shopping_cart_count
     count = 0
@@ -46,6 +48,20 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_that_admin_is_superuser
-    redirect_to :back, alert:'You don\'t have enough privileges to do that.' if current_admin_user.level != 1
+    redirect_to :back, alert:'You don\'t have enough privileges to do that.' unless current_admin_user.superuser
+  end
+
+
+  def slack_msg(message)
+    require 'slack-notifier'
+
+    notifier = Slack::Notifier.new "https://hooks.slack.com/services/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", channel: '#web',
+                                   username: 'lippukauppa'
+
+    notifier.ping message
+  end
+
+  def shopping_cart
+    @shopping_cart ||= ShoppingCart.new(session)
   end
 end

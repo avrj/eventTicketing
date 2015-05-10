@@ -3,8 +3,12 @@
 <h1 class="page-header">
   <span><%= @customer.firstname %> <%= @customer.lastname %></span>
   <div class="btn-group pull-right" role="group" aria-label="...">
-    <%= link_to 'Edit', edit_admin_customer_path(@customer), class: "btn btn-primary" %>
-    <%= link_to 'Destroy', admin_customer_path(@customer), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+    <%= link_to edit_admin_customer_path(@customer), class: "btn btn-primary" do %>
+        <span class="glyphicon glyphicon-edit"></span> Edit
+        <% end %>
+    <%= link_to admin_customer_path(@customer), method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" do %>
+        <span class="glyphicon glyphicon-remove"></span> Destroy
+    <% end %>
       </div>
 </h1>
 

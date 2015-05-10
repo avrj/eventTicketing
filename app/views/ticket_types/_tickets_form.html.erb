@@ -17,9 +17,9 @@
                   <td><%= ticket_type.name %></td>
                   <% if ticket_type.free.count > 0 %>
                       <td>
-                        <% if session[:tickets] %>
-                        <input type="number" name="tickets[<%= ticket_type.id %>]" min="0" max="<%= ticket_type.free.count %>" value="<%= session[:tickets][ticket_type.id.to_s] %>" class="form-control"/>
-                      <% else %>
+                        <% if shopping_cart.tickets %>
+                            <input type="number" name="tickets[<%= ticket_type.id %>]" min="0" max="<%= ticket_type.free.count %>" value="<% if session[:tickets] %><% if session[:tickets][ticket_type.id].nil? %>0<% else %><%= session[:tickets][ticket_type.id] %><% end %><% else %>0<% end %>" class="form-control"/>
+                                <% else %>
                             <input type="number" name="tickets[<%= ticket_type.id %>]" min="0" max="<%= ticket_type.free.count %>" value="0" class="form-control"/>
                         <% end %>
                     </td>
@@ -36,6 +36,6 @@
     </div>
 
     <div class="form-actions">
-      <%= submit_tag("Add to cart", :class => "btn btn-primary") %>
+      <%= submit_tag "Add to cart", :class => "btn btn-primary" %>
     </div>
 <% end %>
