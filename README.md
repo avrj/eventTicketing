@@ -6,5 +6,7 @@
 
 Made with Ruby on Rails. Uses PostgreSQL to store data.
 
-* [Sovelluksen dokumentaatio](https://github.com/avrj/eventTicketing/wiki)
-* [Sovellus Herokussa](http://event-ticketing.herokuapp.com/)
+* [Documentation (in Finnish)](https://github.com/avrj/eventTicketing/wiki)
+* [Try the app on Heroku](http://event-ticketing.herokuapp.com/)
+
+This project was part of a web server programming with Ruby on Rails -course in University of Helsinki on Spring 2015.
